@@ -1,0 +1,68 @@
+# OS and IDE Files
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+*.iml
+
+# Python Virtual Environments
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Python Cache and Compiled Files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+.pytest_cache/
+
+# Environment Variables and Secrets
+.env
+.env.local
+.env.*.local
+config/.env*
+
+# Logs
+*.log
+logs/
+*.log.*
+
+# Temporary and Generated Files
+*.tmp
+*.bak
+*.swp
+*~
+.tmp/
+temp/
+
+# Data Processing Output (Results)
+santa_ana_extraction_results/
+ai_powered_extraction_result.json
+ai_powered_extraction_success.json
+santa_ana_extraction_memory.json
+santa_ana_mapping_report.csv
+
+# Claude IDE Local Settings
+.claude/settings.local.json
+
+# Optional: Daily Logs and Transcripts
+# Uncomment if you want to exclude these:
+# daily_claude_logs/
+
+# Optional: Planning Documents
+# Uncomment if you want to exclude these:
+# Santa_Ana_website_plans/
+# Claude_transfer/

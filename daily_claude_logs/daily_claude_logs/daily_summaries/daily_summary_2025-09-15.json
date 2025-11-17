@@ -1,0 +1,126 @@
+{
+  "date": "2025-09-15",
+  "generated_at": "2025-09-15T14:29:50.936981",
+  "project_root": "/Users/michaelingram/Documents/GitHub/CityVotes_POC/daily_claude_logs",
+  "sessions_analyzed": 1,
+  "overview": {
+    "total_sessions": 1,
+    "total_interactions": 2,
+    "total_duration_minutes": 0.0,
+    "unique_files_referenced": 3,
+    "total_tool_calls": 3,
+    "unique_tools_used": 1
+  },
+  "work_accomplished": [
+    {
+      "timestamp": "2025-09-15T14:29:46.571152",
+      "type": "file_modification",
+      "description": "Help me create a daily session archiver system for Claude",
+      "tools_used": [
+        "Write",
+        "Write"
+      ],
+      "files_involved": [
+        "session_capture.py",
+        "daily_summarizer.py"
+      ]
+    },
+    {
+      "timestamp": "2025-09-15T14:29:46.572120",
+      "type": "file_modification",
+      "description": "Now create the file reference system to save space",
+      "tools_used": [
+        "Write"
+      ],
+      "files_involved": [
+        "file_reference_system.py"
+      ]
+    }
+  ],
+  "files_modified": {
+    "total_files": 3,
+    "files_list": [
+      "file_reference_system.py",
+      "session_capture.py",
+      "daily_summarizer.py"
+    ],
+    "operations_summary": {
+      "session_capture.py": {
+        "read": 0,
+        "write": 2,
+        "edit": 0
+      },
+      "daily_summarizer.py": {
+        "read": 0,
+        "write": 2,
+        "edit": 0
+      },
+      "file_reference_system.py": {
+        "read": 0,
+        "write": 1,
+        "edit": 0
+      }
+    }
+  },
+  "tools_usage": {
+    "tool_counts": {
+      "Write": 3
+    },
+    "most_used_tools": [
+      [
+        "Write",
+        3
+      ]
+    ],
+    "tool_timeline": [
+      {
+        "tool": "Write",
+        "timestamp": "2025-09-15T14:29:46.571152",
+        "session_id": "session_20250915_142946_c80d1518"
+      },
+      {
+        "tool": "Write",
+        "timestamp": "2025-09-15T14:29:46.571152",
+        "session_id": "session_20250915_142946_c80d1518"
+      },
+      {
+        "tool": "Write",
+        "timestamp": "2025-09-15T14:29:46.572120",
+        "session_id": "session_20250915_142946_c80d1518"
+      }
+    ]
+  },
+  "conversation_flow": {
+    "conversation_themes": [
+      {
+        "timestamp": "2025-09-15T14:29:46.571152",
+        "prompt_preview": "Help me create a daily session archiver system for Claude",
+        "response_length": 58
+      },
+      {
+        "timestamp": "2025-09-15T14:29:46.572120",
+        "prompt_preview": "Now create the file reference system to save space",
+        "response_length": 59
+      }
+    ],
+    "total_conversations": 2
+  },
+  "learning_patterns": {
+    "research_to_implementation": 0,
+    "iterative_debugging": 0,
+    "file_exploration": 0,
+    "systematic_testing": 0
+  },
+  "session_details": [
+    {
+      "session_id": "session_20250915_142946_c80d1518",
+      "start_time": "2025-09-15T14:29:46.569102",
+      "interactions": 2,
+      "files_touched": 3,
+      "tools_used": 1,
+      "key_activities": [
+        "Modified files"
+      ]
+    }
+  ]
+}

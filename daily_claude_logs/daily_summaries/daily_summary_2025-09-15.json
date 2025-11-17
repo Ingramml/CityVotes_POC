@@ -1,0 +1,102 @@
+{
+  "date": "2025-09-15",
+  "generated_at": "2025-09-15T16:22:27.091306",
+  "project_root": "/Users/michaelingram/Documents/GitHub/CityVotes_POC",
+  "sessions_analyzed": 2,
+  "overview": {
+    "total_sessions": 2,
+    "total_interactions": 2,
+    "total_duration_minutes": 0.0,
+    "unique_files_referenced": 6,
+    "total_tool_calls": 0,
+    "unique_tools_used": 0
+  },
+  "work_accomplished": [],
+  "files_modified": {
+    "total_files": 6,
+    "files_list": [
+      "/Users/michaelingram/Documents/GitHub/CityVotes_POC/ai_powered_extraction_result.json",
+      "/Users/michaelingram/Documents/GitHub/CityVotes_POC/agents/vote_extraction_agent.py",
+      "/Volumes/SSD/CityVotes/Santa_Ana_CA/Agenda/txt_files/20240116_Meetings4406Agenda.txt",
+      "/Users/michaelingram/Documents/GitHub/CityVotes_POC/agents/city_vote_extractor_factory.py",
+      "/Users/michaelingram/Documents/GitHub/CityVotes_POC/agents/ai_powered_santa_ana_extractor.py",
+      "/Volumes/SSD/CityVotes/Santa_Ana_CA/Minutes/txt_files/20240116_minutes_regular_city_council_meeting_special_housing_auth.txt"
+    ],
+    "operations_summary": {
+      "/Users/michaelingram/Documents/GitHub/CityVotes_POC/ai_powered_extraction_result.json": {
+        "read": 0,
+        "write": 0,
+        "edit": 0
+      },
+      "/Users/michaelingram/Documents/GitHub/CityVotes_POC/agents/city_vote_extractor_factory.py": {
+        "read": 0,
+        "write": 0,
+        "edit": 0
+      },
+      "/Users/michaelingram/Documents/GitHub/CityVotes_POC/agents/ai_powered_santa_ana_extractor.py": {
+        "read": 0,
+        "write": 0,
+        "edit": 0
+      },
+      "/Users/michaelingram/Documents/GitHub/CityVotes_POC/agents/vote_extraction_agent.py": {
+        "read": 0,
+        "write": 0,
+        "edit": 0
+      },
+      "/Volumes/SSD/CityVotes/Santa_Ana_CA/Minutes/txt_files/20240116_minutes_regular_city_council_meeting_special_housing_auth.txt": {
+        "read": 0,
+        "write": 0,
+        "edit": 0
+      },
+      "/Volumes/SSD/CityVotes/Santa_Ana_CA/Agenda/txt_files/20240116_Meetings4406Agenda.txt": {
+        "read": 0,
+        "write": 0,
+        "edit": 0
+      }
+    }
+  },
+  "tools_usage": {
+    "tool_counts": {},
+    "most_used_tools": [],
+    "tool_timeline": []
+  },
+  "conversation_flow": {
+    "conversation_themes": [
+      {
+        "timestamp": "2025-09-15T16:21:50.787219",
+        "prompt_preview": "Continue the conversation from where we left it off without asking the user any further questions. C...",
+        "response_length": 1967
+      },
+      {
+        "timestamp": "2025-09-15T16:22:27.089963",
+        "prompt_preview": "Continue the conversation from where we left it off without asking the user any further questions. C...",
+        "response_length": 1967
+      }
+    ],
+    "total_conversations": 2
+  },
+  "learning_patterns": {
+    "research_to_implementation": 0,
+    "iterative_debugging": 0,
+    "file_exploration": 0,
+    "systematic_testing": 0
+  },
+  "session_details": [
+    {
+      "session_id": "session_20250915_162150_333a4186",
+      "start_time": "2025-09-15T16:21:50.787096",
+      "interactions": 1,
+      "files_touched": 6,
+      "tools_used": 0,
+      "key_activities": []
+    },
+    {
+      "session_id": "session_20250915_162227_08a465cc",
+      "start_time": "2025-09-15T16:22:27.089884",
+      "interactions": 1,
+      "files_touched": 6,
+      "tools_used": 0,
+      "key_activities": []
+    }
+  ]
+}

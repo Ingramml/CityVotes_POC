@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+
+{% block title %}{{ city_config.display_name }} - CityVotes POC{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="display-5 text-primary">
+                    <i class="fas fa-building me-3"></i>{{ city_config.display_name }}
+                </h1>
+                <p class="lead">City Council Voting Analysis</p>
+            </div>
+            <div>
+                <a href="{{ url_for('main.home') }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- City Information -->
+<div class="row mb-4">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-info-circle me-2"></i>City Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Council Members:</strong> {{ city_config.council_members|length }}</p>
+                        <p><strong>Display Name:</strong> {{ city_config.display_name }}</p>
+                        {% if has_data %}
+                        <p><strong>Data Status:</strong> <span class="badge bg-success">Data Available</span></p>
+                        {% else %}
+                        <p><strong>Data Status:</strong> <span class="badge bg-warning">No Data Uploaded</span></p>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        {% if has_data and data_summary %}
+                        <p><strong>Total Votes:</strong> {{ data_summary.total_votes }}</p>
+                        <p><strong>Last Upload:</strong> {{ data_summary.upload_time }}</p>
+                        <p><strong>File:</strong> {{ data_summary.filename }}</p>
+                        {% else %}
+                        <p class="text-muted">Upload voting data to see analysis</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-cogs me-2"></i>Actions</h5>
+            </div>
+            <div class="card-body text-center">
+                {% if has_data %}
+                <a href="{{ url_for('dashboard.vote_summary') }}?city={{ city_name }}"
+                   class="btn btn-primary btn-lg mb-2 w-100">
+                    <i class="fas fa-chart-bar me-2"></i>View Dashboards
+                </a>
+                {% endif %}
+
+                <a href="{{ url_for('main.city_upload', city_name=city_name) }}"
+                   class="btn btn-success btn-lg mb-2 w-100">
+                    <i class="fas fa-upload me-2"></i>
+                    {% if has_data %}Update{% else %}Upload{% endif %} Data
+                </a>
+
+                {% if city_name == 'santa_ana' %}
+                <a href="{{ url_for('main.city_page', city_name='pomona') }}"
+                   class="btn btn-outline-info w-100">
+                    <i class="fas fa-exchange-alt me-2"></i>Switch to Pomona
+                </a>
+                {% else %}
+                <a href="{{ url_for('main.city_page', city_name='santa_ana') }}"
+                   class="btn btn-outline-info w-100">
+                    <i class="fas fa-exchange-alt me-2"></i>Switch to Santa Ana
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Council Members -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-users me-2"></i>Council Members ({{ city_config.council_members|length }})</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for member in city_config.council_members %}
+                    <div class="col-md-6 col-lg-4 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-user-tie fa-2x text-primary mb-2"></i>
+                                <h6 class="card-title">{{ member }}</h6>
+                                {% if has_data %}
+                                <a href="{{ url_for('dashboard.member_analysis') }}?member={{ member|urlencode }}"
+                                   class="btn btn-sm btn-outline-primary">
+                                    View Analysis
+                                </a>
+                                {% else %}
+                                <small class="text-muted">Upload data for analysis</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if has_data %}
+<!-- Dashboard Preview -->
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-chart-pie fa-3x text-primary mb-3"></i>
+                <h5>Vote Summary</h5>
+                <p class="text-muted">
+                    Overall voting patterns, outcomes, and participation rates.
+                </p>
+                <a href="{{ url_for('dashboard.vote_summary') }}" class="btn btn-primary">
+                    View Summary
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-user-friends fa-3x text-success mb-3"></i>
+                <h5>Member Analysis</h5>
+                <p class="text-muted">
+                    Individual member voting behavior and alignment patterns.
+                </p>
+                <a href="{{ url_for('dashboard.member_analysis') }}" class="btn btn-success">
+                    Analyze Members
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-balance-scale fa-3x text-info mb-3"></i>
+                <h5>City Comparison</h5>
+                <p class="text-muted">
+                    Compare voting patterns with other cities in the system.
+                </p>
+                <a href="{{ url_for('dashboard.city_comparison') }}" class="btn btn-info">
+                    Compare Cities
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<!-- No Data Call to Action -->
+<div class="row">
+    <div class="col-12">
+        <div class="card border-warning">
+            <div class="card-body text-center">
+                <i class="fas fa-upload fa-4x text-warning mb-3"></i>
+                <h4>No Voting Data Available</h4>
+                <p class="text-muted mb-4">
+                    Upload JSON voting data for {{ city_config.display_name }} to start analyzing council member behavior and voting patterns.
+                </p>
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <a href="{{ url_for('main.city_upload', city_name=city_name) }}"
+                           class="btn btn-warning btn-lg me-3">
+                            <i class="fas fa-upload me-2"></i>Upload Data Now
+                        </a>
+                        <a href="{{ url_for('main.sample_data') }}"
+                           class="btn btn-outline-secondary">
+                            <i class="fas fa-file-code me-2"></i>View Sample Data
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Set current city in session for navigation
+fetch('/api/session/set-city', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({city: '{{ city_name }}'})
+}).catch(error => console.log('City setting error:', error));
+</script>
+{% endblock %}

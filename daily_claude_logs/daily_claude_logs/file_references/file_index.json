@@ -1,0 +1,107 @@
+{
+  "created": "2025-09-15T14:29:46.569191",
+  "files": {
+    "session_capture.py": {
+      "first_seen": "2025-09-15T14:29:46.569996",
+      "references": [
+        {
+          "timestamp": "2025-09-15T14:29:46.569616",
+          "operation": "write",
+          "content_hash": "ca47602bd460280544d6a0ff5e6bfef96b8fe3a74bdff0c1a8f7d796bdb01d39",
+          "size": 6030
+        }
+      ]
+    },
+    "daily_summarizer.py": {
+      "first_seen": "2025-09-15T14:29:46.571046",
+      "references": [
+        {
+          "timestamp": "2025-09-15T14:29:46.570333",
+          "operation": "write",
+          "content_hash": "0ee30425cadebc63834528a48807e07e9f7c706b7e14a1c2b5bcfd70bea0c3de",
+          "size": 14511
+        }
+      ]
+    },
+    "file_reference_system.py": {
+      "first_seen": "2025-09-15T14:29:46.572013",
+      "references": [
+        {
+          "timestamp": "2025-09-15T14:29:46.571468",
+          "operation": "write",
+          "content_hash": "94064d364cdd0b73dbcfe51b9f4e4b1ddd0f62d0b2e8c4cf05db079b2d19db98",
+          "size": 10771
+        }
+      ]
+    },
+    "santa_ana_mapping_report.csv": {
+      "first_seen": "2025-09-15T14:52:05.896416",
+      "references": [
+        {
+          "timestamp": "2025-09-15T14:52:05.896407",
+          "operation": "read",
+          "content_hash": null,
+          "size": 0
+        }
+      ]
+    },
+    "agents/city_vote_extractor_factory.py": {
+      "first_seen": "2025-09-15T14:52:05.896908",
+      "references": [
+        {
+          "timestamp": "2025-09-15T14:52:05.896899",
+          "operation": "read",
+          "content_hash": null,
+          "size": 0
+        }
+      ]
+    },
+    "santa_ana_minutes_2024-01-16.txt": {
+      "first_seen": "2025-09-15T14:52:05.897258",
+      "references": [
+        {
+          "timestamp": "2025-09-15T14:52:05.897250",
+          "operation": "read",
+          "content_hash": null,
+          "size": 0
+        }
+      ]
+    },
+    "AI_EXTRACTED_santa_ana_votes_2024-01-16.json": {
+      "first_seen": "2025-09-15T14:52:05.897575",
+      "references": [
+        {
+          "timestamp": "2025-09-15T14:52:05.897567",
+          "operation": "write",
+          "content_hash": null,
+          "size": 0
+        }
+      ]
+    }
+  },
+  "content_hashes": {
+    "ca47602bd460280544d6a0ff5e6bfef96b8fe3a74bdff0c1a8f7d796bdb01d39": {
+      "cache_file": "ca47602bd4602805.json.gz",
+      "size": 6030,
+      "created": "2025-09-15T14:29:46.569973",
+      "reference_count": 1
+    },
+    "0ee30425cadebc63834528a48807e07e9f7c706b7e14a1c2b5bcfd70bea0c3de": {
+      "cache_file": "0ee30425cadebc63.json.gz",
+      "size": 14511,
+      "created": "2025-09-15T14:29:46.571011",
+      "reference_count": 1
+    },
+    "94064d364cdd0b73dbcfe51b9f4e4b1ddd0f62d0b2e8c4cf05db079b2d19db98": {
+      "cache_file": "94064d364cdd0b73.json.gz",
+      "size": 10771,
+      "created": "2025-09-15T14:29:46.571990",
+      "reference_count": 1
+    }
+  },
+  "stats": {
+    "total_files_tracked": 7,
+    "total_content_versions": 3,
+    "storage_saved_bytes": 0
+  }
+}

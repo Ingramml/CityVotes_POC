@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CityVotes POC{% endblock %}</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('main.home') }}">
+                <i class="fas fa-vote-yea me-2"></i>CityVotes POC
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.home') }}">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.upload_page') }}">
+                            <i class="fas fa-upload me-1"></i>Upload Data
+                        </a>
+                    </li>
+
+                    {% if session.session_id %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dashboardDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-chart-bar me-1"></i>Dashboards
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('dashboard.vote_summary') }}">
+                                <i class="fas fa-chart-pie me-2"></i>Vote Summary
+                            </a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('dashboard.member_analysis') }}">
+                                <i class="fas fa-users me-2"></i>Member Analysis
+                            </a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('dashboard.city_comparison') }}">
+                                <i class="fas fa-balance-scale me-2"></i>City Comparison
+                            </a></li>
+                        </ul>
+                    </li>
+                    {% endif %}
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="citiesDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-city me-1"></i>Cities
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('main.city_page', city_name='santa_ana') }}">
+                                <i class="fas fa-building me-2"></i>Santa Ana
+                            </a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('main.city_page', city_name='pomona') }}">
+                                <i class="fas fa-building me-2"></i>Pomona
+                            </a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.sample_data') }}">
+                            <i class="fas fa-file-code me-1"></i>Sample Data
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Current City Display -->
+                {% if session.current_city %}
+                <div class="navbar-text me-3">
+                    <i class="fas fa-map-marker-alt me-1"></i>
+                    <span class="badge bg-light text-dark">{{ session.current_city|title }}</span>
+                </div>
+                {% endif %}
+
+                <!-- City Switcher -->
+                {% if available_cities and available_cities|length > 1 %}
+                <div class="dropdown">
+                    <button class="btn btn-outline-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        Switch City
+                    </button>
+                    <ul class="dropdown-menu">
+                        {% for city_key, city_name in available_cities.items() %}
+                        {% if city_key != session.current_city %}
+                        <li><a class="dropdown-item" href="{{ url_for('dashboard.switch_city', city_name=city_key) }}">
+                            {{ city_name }}
+                        </a></li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    <div class="container mt-3">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ 'danger' if category == 'error' else 'warning' if category == 'warning' else 'success' if category == 'success' else 'info' }} alert-dismissible fade show" role="alert">
+                        {% if category == 'error' %}
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                        {% elif category == 'success' %}
+                            <i class="fas fa-check-circle me-2"></i>
+                        {% elif category == 'warning' %}
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                        {% else %}
+                            <i class="fas fa-info-circle me-2"></i>
+                        {% endif %}
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Main Content -->
+    <main class="container my-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-light mt-5 py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h6>CityVotes POC - Two-City Vote Analysis Platform</h6>
+                    <p class="text-muted mb-0">
+                        Proof of concept for analyzing Santa Ana and Pomona city council voting data.
+                        Built with Flask, Sub-Agents, and Chart.js.
+                    </p>
+                </div>
+                <div class="col-md-4 text-end">
+                    <a href="{{ url_for('main.health_check') }}" class="btn btn-outline-secondary btn-sm">
+                        <i class="fas fa-heartbeat me-1"></i>System Health
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

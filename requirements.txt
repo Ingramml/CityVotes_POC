@@ -1,0 +1,17 @@
+# CityVotes POC - Python Dependencies
+# Core Flask application requirements
+
+Flask==2.3.3
+Werkzeug==2.3.7
+
+# For file handling and JSON processing
+pathlib2==2.3.7; python_version < '3.4'
+
+# For development and testing
+flask-testing==0.8.1
+
+# Production server (optional)
+gunicorn==21.2.0
+
+# Environment management
+python-dotenv==1.0.0

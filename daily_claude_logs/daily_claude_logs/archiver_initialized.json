@@ -1,0 +1,12 @@
+{
+  "initialized_at": "2025-09-15T14:52:05.896037",
+  "project_root": "/Users/michaelingram/Documents/GitHub/CityVotes_POC/daily_claude_logs",
+  "archiver_version": "1.0",
+  "components": [
+    "session_capture",
+    "daily_summarizer",
+    "file_reference_system",
+    "learning_insights_tracker",
+    "weekly_review_generator"
+  ]
+}

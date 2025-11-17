@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+
+{% block title %}Vote Summary - {{ city_info.display_name }} - CityVotes POC{% endblock %}
+
+{% block content %}
+<!-- Dashboard Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="text-primary">
+                    <i class="fas fa-chart-pie me-2"></i>Vote Summary Dashboard
+                </h2>
+                <p class="text-muted mb-0">
+                    {{ city_info.display_name }} - {{ upload_info.original_filename }}
+                    <small class="ms-2">uploaded {{ upload_info.upload_timestamp[:19] }}</small>
+                </p>
+            </div>
+            <div>
+                {% if available_cities|length > 1 %}
+                <div class="dropdown">
+                    <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-exchange-alt me-1"></i>Switch City
+                    </button>
+                    <ul class="dropdown-menu">
+                        {% for city_key, city_name in available_cities.items() %}
+                        {% if city_key != current_city %}
+                        <li><a class="dropdown-item" href="{{ url_for('dashboard.switch_city', city_name=city_key) }}">
+                            {{ city_name }}
+                        </a></li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Key Metrics Cards -->
+<div class="row mb-4">
+    <div class="col-md-3 col-sm-6 mb-3">
+        <div class="card metric-card">
+            <div class="metric-value">{{ vote_summary.total_votes }}</div>
+            <div class="metric-label">Total Votes</div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-3">
+        <div class="card metric-card">
+            <div class="metric-value text-success">{{ vote_summary.outcomes.Pass.count if vote_summary.outcomes.Pass else 0 }}</div>
+            <div class="metric-label">Passed</div>
+            <div class="metric-percentage positive">
+                {{ vote_summary.outcomes.Pass.percentage if vote_summary.outcomes.Pass else 0 }}%
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-3">
+        <div class="card metric-card">
+            <div class="metric-value text-danger">{{ vote_summary.outcomes.Fail.count if vote_summary.outcomes.Fail else 0 }}</div>
+            <div class="metric-label">Failed</div>
+            <div class="metric-percentage">
+                {{ vote_summary.outcomes.Fail.percentage if vote_summary.outcomes.Fail else 0 }}%
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-3">
+        <div class="card metric-card">
+            <div class="metric-value">{{ active_members }}</div>
+            <div class="metric-label">Active Members</div>
+            <div class="metric-percentage">
+                {{ (active_members / total_members * 100)|round(1) }}% participating
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Row -->
+<div class="row mb-4">
+    <!-- Vote Outcome Chart -->
+    <div class="col-md-6 mb-4">
+        <div class="card dashboard-card">
+            <div class="card-header">
+                <h5><i class="fas fa-chart-pie me-2"></i>Vote Outcomes</h5>
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="voteOutcomeChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Member Participation Chart -->
+    <div class="col-md-6 mb-4">
+        <div class="card dashboard-card">
+            <div class="card-header">
+                <h5><i class="fas fa-chart-bar me-2"></i>Member Participation</h5>
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="memberParticipationChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Member Summary Table -->
+<div class="row">
+    <div class="col-12">
+        <div class="card dashboard-card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5><i class="fas fa-users me-2"></i>Council Member Summary</h5>
+                <small class="text-light">{{ member_participation|length }} members</small>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Council Member</th>
+                                <th class="text-center">Total Votes</th>
+                                <th class="text-center">Aye %</th>
+                                <th class="text-center">Participation</th>
+                                <th>Voting Pattern</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for member in member_participation %}
+                            <tr>
+                                <td>
+                                    <strong>{{ member.name }}</strong>
+                                </td>
+                                <td class="text-center">
+                                    <span class="badge bg-primary">{{ member.votes }}</span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="badge bg-success">{{ member.aye_percentage }}%</span>
+                                </td>
+                                <td class="text-center">
+                                    {% set participation = (member.votes / vote_summary.total_votes * 100) if vote_summary.total_votes > 0 else 0 %}
+                                    <div class="progress" style="width: 100px; height: 6px;">
+                                        <div class="progress-bar bg-info" style="width: {{ participation }}%"></div>
+                                    </div>
+                                    <small class="text-muted">{{ participation|round(1) }}%</small>
+                                </td>
+                                <td>
+                                    {% if member.aye_percentage >= 75 %}
+                                    <span class="badge bg-success">Pro-majority</span>
+                                    {% elif member.aye_percentage <= 25 %}
+                                    <span class="badge bg-warning">Frequent dissent</span>
+                                    {% else %}
+                                    <span class="badge bg-info">Moderate</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Dashboard Navigation -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h6><i class="fas fa-compass me-2"></i>Explore More</h6>
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="{{ url_for('dashboard.member_analysis') }}" class="btn btn-outline-primary w-100 mb-2">
+                            <i class="fas fa-user-friends me-2"></i>Member Analysis Dashboard
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        {% if available_cities|length > 1 %}
+                        <a href="{{ url_for('dashboard.city_comparison') }}" class="btn btn-outline-success w-100 mb-2">
+                            <i class="fas fa-balance-scale me-2"></i>City Comparison Dashboard
+                        </a>
+                        {% else %}
+                        <button class="btn btn-outline-secondary w-100 mb-2" disabled>
+                            <i class="fas fa-balance-scale me-2"></i>City Comparison (need 2+ cities)
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Vote Outcome Chart
+    const voteOutcomeData = {{ vote_summary.outcomes | tojson }};
+    ChartUtils.createVoteOutcomeChart('voteOutcomeChart', { outcomes: voteOutcomeData }, '{{ current_city }}');
+
+    // Member Participation Chart Data
+    const memberData = {};
+    {% for member in member_participation[:7] %}  // Top 7 most active
+    memberData['{{ member.name }}'] = {
+        total_votes: {{ member.votes }},
+        vote_breakdown: {
+            Aye: Math.round({{ member.votes }} * {{ member.aye_percentage }} / 100),
+            Nay: {{ member.votes }} - Math.round({{ member.votes }} * {{ member.aye_percentage }} / 100)
+        }
+    };
+    {% endfor %}
+
+    ChartUtils.createMemberVotingChart('memberParticipationChart', memberData, '{{ current_city }}');
+});
+</script>
+{% endblock %}

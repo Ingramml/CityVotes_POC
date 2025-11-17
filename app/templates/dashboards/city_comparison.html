@@ -1,0 +1,375 @@
+{% extends "base.html" %}
+
+{% block title %}City Comparison - CityVotes POC{% endblock %}
+
+{% block content %}
+<!-- Dashboard Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <h2 class="text-primary">
+            <i class="fas fa-balance-scale me-2"></i>City Comparison Dashboard
+        </h2>
+        <p class="text-muted">
+            Side-by-side analysis of voting patterns across {{ cities_count }} cities
+        </p>
+    </div>
+</div>
+
+<!-- City Overview Cards -->
+<div class="row mb-4">
+    {% for city_key, data in comparison_data.items() %}
+    <div class="col-md-6 mb-4">
+        <div class="comparison-card" style="border-left: 4px solid {{ data.colors.primary }};">
+            <div class="city-badge" style="background-color: {{ data.colors.primary }}; color: white;">
+                {{ data.display_name }}
+            </div>
+
+            <!-- Key Metrics -->
+            <div class="comparison-metrics">
+                <div class="comparison-metric">
+                    <div class="comparison-value" style="color: {{ data.colors.primary }};">
+                        {{ data.vote_summary.total_votes }}
+                    </div>
+                    <div class="comparison-label">Total Votes</div>
+                </div>
+
+                <div class="comparison-metric">
+                    <div class="comparison-value" style="color: {{ data.colors.success }};">
+                        {{ comparison_metrics[city_key].pass_rate }}%
+                    </div>
+                    <div class="comparison-label">Pass Rate</div>
+                </div>
+
+                <div class="comparison-metric">
+                    <div class="comparison-value" style="color: {{ data.colors.secondary }};">
+                        {{ data.council_size }}
+                    </div>
+                    <div class="comparison-label">Council Size</div>
+                </div>
+
+                <div class="comparison-metric">
+                    <div class="comparison-value" style="color: {{ data.colors.info if data.colors.info else '#17a2b8' }};">
+                        {{ data.member_count }}
+                    </div>
+                    <div class="comparison-label">Active Members</div>
+                </div>
+            </div>
+
+            <!-- Voting Breakdown -->
+            <div class="mt-3">
+                <h6 class="mb-2">Vote Outcomes</h6>
+                {% set vs = data.vote_summary %}
+                <div class="row text-center">
+                    <div class="col-3">
+                        <div class="text-success h5 mb-0">{{ vs.outcomes.Pass.count if vs.outcomes.Pass else 0 }}</div>
+                        <small class="text-muted">Pass</small>
+                    </div>
+                    <div class="col-3">
+                        <div class="text-danger h5 mb-0">{{ vs.outcomes.Fail.count if vs.outcomes.Fail else 0 }}</div>
+                        <small class="text-muted">Fail</small>
+                    </div>
+                    <div class="col-3">
+                        <div class="text-warning h5 mb-0">{{ vs.outcomes.Tie.count if vs.outcomes.Tie else 0 }}</div>
+                        <small class="text-muted">Tie</small>
+                    </div>
+                    <div class="col-3">
+                        <div class="text-secondary h5 mb-0">{{ vs.outcomes.Continued.count if vs.outcomes.Continued else 0 }}</div>
+                        <small class="text-muted">Continued</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upload Info -->
+            <div class="mt-3 pt-2 border-top">
+                <small class="text-muted">
+                    <i class="fas fa-file me-1"></i>{{ data.upload_filename }}<br>
+                    <i class="fas fa-clock me-1"></i>{{ data.upload_time[:19] }}
+                </small>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Comparison Charts -->
+<div class="row mb-4">
+    <!-- Pass Rate Comparison -->
+    <div class="col-md-6 mb-4">
+        <div class="card dashboard-card">
+            <div class="card-header">
+                <h5><i class="fas fa-chart-bar me-2"></i>Pass Rate Comparison</h5>
+            </div>
+            <div class="card-body">
+                <div class="chart-container small">
+                    <canvas id="passRateChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vote Volume Comparison -->
+    <div class="col-md-6 mb-4">
+        <div class="card dashboard-card">
+            <div class="card-header">
+                <h5><i class="fas fa-chart-column me-2"></i>Vote Volume</h5>
+            </div>
+            <div class="card-body">
+                <div class="chart-container small">
+                    <canvas id="voteVolumeChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Detailed Comparison Table -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card dashboard-card">
+            <div class="card-header">
+                <h5><i class="fas fa-table me-2"></i>Detailed Comparison</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Metric</th>
+                                {% for city_key, data in comparison_data.items() %}
+                                <th class="text-center" style="color: {{ data.colors.primary }};">
+                                    {{ data.display_name }}
+                                </th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Total Votes Analyzed</strong></td>
+                                {% for city_key, data in comparison_data.items() %}
+                                <td class="text-center">
+                                    <span class="badge" style="background-color: {{ data.colors.primary }};">
+                                        {{ data.vote_summary.total_votes }}
+                                    </span>
+                                </td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <td><strong>Pass Rate</strong></td>
+                                {% for city_key, data in comparison_data.items() %}
+                                <td class="text-center">
+                                    <span class="badge bg-success">{{ comparison_metrics[city_key].pass_rate }}%</span>
+                                </td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <td><strong>Council Size</strong></td>
+                                {% for city_key, data in comparison_data.items() %}
+                                <td class="text-center">{{ data.council_size }} seats</td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <td><strong>Active Members</strong></td>
+                                {% for city_key, data in comparison_data.items() %}
+                                <td class="text-center">{{ data.member_count }} participating</td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <td><strong>Votes per Member</strong></td>
+                                {% for city_key, data in comparison_data.items() %}
+                                <td class="text-center">{{ comparison_metrics[city_key].votes_per_member }} avg</td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <td><strong>Council Efficiency</strong></td>
+                                {% for city_key, data in comparison_data.items() %}
+                                <td class="text-center">
+                                    <div class="progress" style="height: 20px;">
+                                        <div class="progress-bar"
+                                             style="width: {{ comparison_metrics[city_key].council_efficiency }}%; background-color: {{ data.colors.primary }};">
+                                            {{ comparison_metrics[city_key].council_efficiency }}%
+                                        </div>
+                                    </div>
+                                </td>
+                                {% endfor %}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Vote Outcome Distribution -->
+<div class="row">
+    <div class="col-12">
+        <div class="card dashboard-card">
+            <div class="card-header">
+                <h5><i class="fas fa-chart-pie me-2"></i>Vote Outcome Distribution</h5>
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="outcomeDistributionChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Navigation -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body text-center">
+                <h6><i class="fas fa-compass me-2"></i>Explore Individual Cities</h6>
+                <div class="row">
+                    {% for city_key, data in comparison_data.items() %}
+                    <div class="col-md-6 mb-2">
+                        <a href="{{ url_for('dashboard.switch_city', city_name=city_key) }}"
+                           class="btn w-100"
+                           style="background-color: {{ data.colors.primary }}; border-color: {{ data.colors.primary }}; color: white;">
+                            <i class="fas fa-chart-line me-2"></i>{{ data.display_name }} Dashboard
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const comparisonData = {{ comparison_data | tojson }};
+    const comparisonMetrics = {{ comparison_metrics | tojson }};
+
+    // Pass Rate Comparison Chart
+    const passRateCtx = document.getElementById('passRateChart');
+    if (passRateCtx) {
+        const cities = Object.keys(comparisonData);
+        const passRates = cities.map(city => comparisonMetrics[city].pass_rate);
+        const colors = cities.map(city => comparisonData[city].colors.primary);
+
+        new Chart(passRateCtx, {
+            type: 'bar',
+            data: {
+                labels: cities.map(city => comparisonData[city].display_name),
+                datasets: [{
+                    label: 'Pass Rate (%)',
+                    data: passRates,
+                    backgroundColor: colors,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+    }
+
+    // Vote Volume Chart
+    const volumeCtx = document.getElementById('voteVolumeChart');
+    if (volumeCtx) {
+        const cities = Object.keys(comparisonData);
+        const volumes = cities.map(city => comparisonData[city].vote_summary.total_votes);
+        const colors = cities.map(city => comparisonData[city].colors.secondary);
+
+        new Chart(volumeCtx, {
+            type: 'doughnut',
+            data: {
+                labels: cities.map(city => comparisonData[city].display_name),
+                datasets: [{
+                    data: volumes,
+                    backgroundColor: colors,
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    }
+
+    // Outcome Distribution Chart
+    const outcomeCtx = document.getElementById('outcomeDistributionChart');
+    if (outcomeCtx) {
+        const cities = Object.keys(comparisonData);
+
+        const datasets = [
+            {
+                label: 'Pass',
+                data: cities.map(city => {
+                    const outcomes = comparisonData[city].vote_summary.outcomes;
+                    return outcomes.Pass ? outcomes.Pass.count : 0;
+                }),
+                backgroundColor: '#28a745'
+            },
+            {
+                label: 'Fail',
+                data: cities.map(city => {
+                    const outcomes = comparisonData[city].vote_summary.outcomes;
+                    return outcomes.Fail ? outcomes.Fail.count : 0;
+                }),
+                backgroundColor: '#dc3545'
+            },
+            {
+                label: 'Tie',
+                data: cities.map(city => {
+                    const outcomes = comparisonData[city].vote_summary.outcomes;
+                    return outcomes.Tie ? outcomes.Tie.count : 0;
+                }),
+                backgroundColor: '#ffc107'
+            }
+        ];
+
+        new Chart(outcomeCtx, {
+            type: 'bar',
+            data: {
+                labels: cities.map(city => comparisonData[city].display_name),
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { stacked: true },
+                    y: {
+                        stacked: true,
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    }
+                }
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

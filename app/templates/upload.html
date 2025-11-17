@@ -1,0 +1,451 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Data - CityVotes POC{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="display-4 text-primary">
+                    <i class="fas fa-cloud-upload-alt me-3"></i>Upload Voting Data
+                </h1>
+                <p class="lead">Select a city and upload JSON voting records for analysis</p>
+                <p class="text-muted">
+                    Upload council meeting data to generate comprehensive dashboards and insights.
+                </p>
+            </div>
+            <div>
+                <a href="{{ url_for('main.home') }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Upload Form -->
+<div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8">
+        <div class="card dashboard-card">
+            <div class="card-body">
+                <form id="uploadForm" method="post" action="{{ url_for('main.upload_file') }}" enctype="multipart/form-data">
+
+                    <!-- City Selection -->
+                    <div class="city-selector mb-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <h4 class="mb-0 me-3">
+                                <i class="fas fa-map-marker-alt me-2 text-primary"></i>Step 1: Choose City
+                            </h4>
+                            <span class="badge bg-primary">Required</span>
+                        </div>
+                        <p class="text-muted mb-3">Select which city council you're uploading voting data for:</p>
+
+                        <div class="row">
+                            {% for city_key, city_name in cities.items() %}
+                            <div class="col-md-6 mb-3">
+                                <div class="city-option {% if selected_city == city_key %}selected{% endif %}" data-city="{{ city_key }}">
+                                    <input type="radio" name="city" value="{{ city_key }}" id="city_{{ city_key }}"
+                                           {% if selected_city == city_key %}checked{% endif %} required>
+                                    <label for="city_{{ city_key }}" class="w-100">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-building fa-2x text-primary me-3"></i>
+                                            <div>
+                                                <div class="city-name">{{ city_name }}</div>
+                                                <div class="city-details">
+                                                    {% if city_key == 'santa_ana' %}
+                                                    7 council members
+                                                    {% elif city_key == 'pomona' %}
+                                                    5 council members
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <!-- City Info Box -->
+                        <div id="cityInfo" class="alert alert-info" style="display: none;">
+                            <h6 class="alert-heading">
+                                <i class="fas fa-info-circle me-2"></i>Selected City Information
+                            </h6>
+                            <div id="cityInfoContent"></div>
+                        </div>
+                    </div>
+
+                    <!-- File Upload Zone -->
+                    <div class="mb-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <h4 class="mb-0 me-3">
+                                <i class="fas fa-file-upload me-2 text-success"></i>Step 2: Upload JSON File
+                            </h4>
+                            <span class="badge bg-success">Required</span>
+                        </div>
+                        <p class="text-muted mb-3">Upload your city council voting data in JSON format:</p>
+                        <div id="uploadZone" class="upload-zone">
+                            <div class="upload-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <div class="upload-text">
+                                <strong>Drag & drop your JSON file here</strong><br>
+                                or click to browse files<br>
+                                <small class="text-muted">Maximum file size: 16MB</small>
+                            </div>
+                            <input type="file" id="fileInput" name="file" accept=".json" class="file-input" required>
+                        </div>
+
+                        <!-- File Info -->
+                        <div id="fileInfo" class="file-info mt-3" style="display: none;">
+                            <div class="alert alert-info">
+                                <i class="fas fa-file-alt me-2"></i>
+                                <span id="fileName"></span>
+                                <span id="fileSize" class="text-muted"></span>
+                                <button type="button" class="btn btn-sm btn-outline-danger float-end" onclick="clearFile()">
+                                    <i class="fas fa-times me-1"></i>Remove
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upload Button -->
+                    <div class="text-center">
+                        <button type="submit" id="uploadBtn" class="btn btn-success btn-lg" disabled>
+                            <i class="fas fa-upload me-2"></i>Process Voting Data
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Data Format Information -->
+<div class="row mt-5">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-info-circle me-2"></i>Required Data Format</h5>
+            </div>
+            <div class="card-body">
+                <p>Your JSON file should contain a <code>votes</code> array with the following structure:</p>
+                <pre class="bg-light p-3 rounded"><code>{
+  "votes": [
+    {
+      "agenda_item_number": "7.1",
+      "agenda_item_title": "Budget Amendment",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 5,
+        "noes": 2,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Member Name": "Aye",
+        "Another Member": "Nay"
+      }
+    }
+  ]
+}</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-lightbulb me-2"></i>Tips</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Each vote must have an agenda item number and title
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Outcome should be "Pass" or "Fail"
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Member votes: "Aye", "Nay", "Abstain", or "Absent"
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Tally numbers should match member vote counts
+                    </li>
+                </ul>
+
+                <div class="mt-3">
+                    <a href="{{ url_for('main.sample_data') }}" class="btn btn-outline-primary">
+                        <i class="fas fa-download me-2"></i>View Sample Data
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Uploads -->
+{% if session.session_id %}
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-history me-2"></i>Session Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Session ID:</strong> {{ session.session_id[:8] }}...</p>
+                        {% if session.current_city %}
+                        <p><strong>Current City:</strong> {{ session.current_city|title }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <div id="sessionCities"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const uploadZone = document.getElementById('uploadZone');
+    const fileInput = document.getElementById('fileInput');
+    const uploadBtn = document.getElementById('uploadBtn');
+    const fileInfo = document.getElementById('fileInfo');
+    const fileName = document.getElementById('fileName');
+    const fileSize = document.getElementById('fileSize');
+
+    // City selection
+    const cityOptions = document.querySelectorAll('.city-option');
+    const cityInfo = document.getElementById('cityInfo');
+    const cityInfoContent = document.getElementById('cityInfoContent');
+
+    const cityDetails = {
+        'santa_ana': {
+            name: 'Santa Ana',
+            members: 7,
+            description: 'Upload voting data for Santa Ana City Council meetings.',
+            info: 'Council members include Mayor Valerie Amezcua and 6 council members.'
+        },
+        'pomona': {
+            name: 'Pomona',
+            members: 5,
+            description: 'Upload voting data for Pomona City Council meetings.',
+            info: 'Council includes 5 members representing different districts.'
+        }
+    };
+
+    cityOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            const radio = this.querySelector('input[type="radio"]');
+            const cityKey = radio.value;
+            radio.checked = true;
+
+            // Remove selected class from all options
+            cityOptions.forEach(opt => opt.classList.remove('selected'));
+            // Add selected class to clicked option
+            this.classList.add('selected');
+
+            // Show city information
+            if (cityDetails[cityKey]) {
+                const details = cityDetails[cityKey];
+                cityInfoContent.innerHTML = `
+                    <strong>${details.name} City Council</strong><br>
+                    ${details.description}<br>
+                    <small class="text-muted">${details.info}</small>
+                `;
+                cityInfo.style.display = 'block';
+            }
+
+            updateUploadButton();
+        });
+    });
+
+    // Drag and drop functionality
+    uploadZone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        uploadZone.classList.add('dragover');
+    });
+
+    uploadZone.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        uploadZone.classList.remove('dragover');
+    });
+
+    uploadZone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        uploadZone.classList.remove('dragover');
+
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            fileInput.files = files;
+            handleFileSelect();
+        }
+    });
+
+    uploadZone.addEventListener('click', function() {
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', handleFileSelect);
+
+    function handleFileSelect() {
+        const file = fileInput.files[0];
+        if (file) {
+            // Validate file type
+            if (!file.name.toLowerCase().endsWith('.json')) {
+                alert('Please select a JSON file.');
+                clearFile();
+                return;
+            }
+
+            // Validate file size (16MB)
+            if (file.size > 16 * 1024 * 1024) {
+                alert('File size must be less than 16MB.');
+                clearFile();
+                return;
+            }
+
+            // Show file info
+            fileName.textContent = file.name;
+            fileSize.textContent = ` (${(file.size / 1024).toFixed(1)} KB)`;
+            fileInfo.style.display = 'block';
+            uploadZone.classList.add('file-selected');
+        }
+
+        updateUploadButton();
+    }
+
+    function updateUploadButton() {
+        const citySelected = document.querySelector('input[name="city"]:checked');
+        const fileSelected = fileInput.files.length > 0;
+
+        uploadBtn.disabled = !(citySelected && fileSelected);
+    }
+
+    // Clear file function
+    window.clearFile = function() {
+        fileInput.value = '';
+        fileInfo.style.display = 'none';
+        uploadZone.classList.remove('file-selected');
+        updateUploadButton();
+    };
+
+    // Load session cities info
+    {% if session.session_id %}
+    fetch('/api/session/cities')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.cities.length > 0) {
+                const container = document.getElementById('sessionCities');
+                const cityList = Object.values(data.city_info).join(', ');
+                container.innerHTML = '<strong>Cities with data:</strong> ' + cityList;
+            }
+        })
+        .catch(error => console.log('Session info error:', error));
+    {% endif %}
+});
+</script>
+
+<style>
+.city-option {
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.city-option:hover {
+    border-color: #007bff;
+    background-color: #f8f9fa;
+}
+
+.city-option.selected {
+    border-color: #007bff;
+    background-color: #e7f3ff;
+}
+
+.city-option input[type="radio"] {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.city-option label {
+    cursor: pointer;
+    margin: 0;
+}
+
+.city-name {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.city-details {
+    color: #6c757d;
+    font-size: 0.9em;
+}
+
+.upload-zone {
+    border: 3px dashed #dee2e6;
+    border-radius: 10px;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.upload-zone:hover {
+    border-color: #007bff;
+    background-color: #f8f9fa;
+}
+
+.upload-zone.dragover {
+    border-color: #28a745;
+    background-color: #e8f5e8;
+}
+
+.upload-zone.file-selected {
+    border-color: #28a745;
+    background-color: #e8f5e8;
+}
+
+.upload-icon {
+    font-size: 3rem;
+    color: #6c757d;
+    margin-bottom: 15px;
+}
+
+.upload-text {
+    color: #6c757d;
+}
+
+.file-input {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.file-info {
+    max-width: 100%;
+}
+</style>
+{% endblock %}

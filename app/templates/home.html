@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+
+{% block title %}Home - CityVotes POC{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="text-center mb-5">
+            <h1 class="display-4 text-primary">
+                <i class="fas fa-vote-yea me-3"></i>CityVotes POC
+            </h1>
+            <p class="lead">Two-City Vote Analysis Platform</p>
+            <p class="text-muted">
+                Upload and analyze city council voting data for Santa Ana and Pomona.
+                Get insights into voting patterns, member behavior, and comparative analysis.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- City Selection Section -->
+<div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8">
+        <div class="card dashboard-card">
+            <div class="card-header">
+                <h5><i class="fas fa-city me-2"></i>Select a City</h5>
+            </div>
+            <div class="card-body">
+                <p class="text-muted mb-4">Choose a city to view data or upload new voting records</p>
+
+                <div class="row">
+                    {% for city_key, city_name in cities.items() %}
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100 city-card">
+                            <div class="card-body text-center">
+                                <i class="fas fa-building fa-3x text-primary mb-3"></i>
+                                <h5 class="card-title">{{ city_name }}</h5>
+                                <p class="text-muted">
+                                    {% if city_key == 'santa_ana' %}
+                                    7 council members
+                                    {% elif city_key == 'pomona' %}
+                                    5 council members
+                                    {% endif %}
+                                </p>
+                                <div class="mt-3">
+                                    <a href="{{ url_for('main.city_page', city_name=city_key) }}"
+                                       class="btn btn-primary btn-lg w-100">
+                                        <i class="fas fa-eye me-2"></i>View {{ city_name }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Links Section -->
+<div class="row mt-5">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <i class="fas fa-upload fa-3x text-warning mb-3"></i>
+                <h5>Upload Data</h5>
+                <p class="text-muted">
+                    Upload JSON voting data to analyze council meetings and member behavior.
+                </p>
+                <a href="{{ url_for('main.upload_page') }}" class="btn btn-warning">
+                    <i class="fas fa-upload me-2"></i>Upload Now
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <i class="fas fa-chart-bar fa-3x text-success mb-3"></i>
+                <h5>View Dashboards</h5>
+                <p class="text-muted">
+                    Three comprehensive dashboards: Vote Summary, Member Analysis, and City Comparison.
+                </p>
+                {% if session.current_city %}
+                <a href="{{ url_for('dashboard.vote_summary') }}" class="btn btn-success">
+                    View Dashboards
+                </a>
+                {% else %}
+                <a href="{{ url_for('main.upload_page') }}" class="btn btn-outline-success">
+                    Upload Data First
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <i class="fas fa-file-code fa-3x text-info mb-3"></i>
+                <h5>Sample Data</h5>
+                <p class="text-muted">
+                    View sample JSON format and download example voting data files.
+                </p>
+                <a href="{{ url_for('main.sample_data') }}" class="btn btn-info">
+                    View Sample Data
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Current Session Info -->
+{% if session.session_id %}
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="alert alert-info">
+            <h6><i class="fas fa-info-circle me-2"></i>Session Information</h6>
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>Session ID:</strong> {{ session.session_id[:8] }}...<br>
+                    {% if session.current_city %}
+                    <strong>Current City:</strong> {{ session.current_city|title }}
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    <div id="sessionCities"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- How It Works Section -->
+<div class="row mt-5">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fas fa-question-circle me-2"></i>How It Works
+                </h5>
+                <div class="row">
+                    <div class="col-md-3 text-center mb-3">
+                        <div class="mb-2">
+                            <i class="fas fa-city fa-2x text-primary"></i>
+                        </div>
+                        <h6>1. Choose City</h6>
+                        <p class="text-muted small">Select Santa Ana or Pomona to explore</p>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                        <div class="mb-2">
+                            <i class="fas fa-info-circle fa-2x text-success"></i>
+                        </div>
+                        <h6>2. View City Info</h6>
+                        <p class="text-muted small">Learn about council members and structure</p>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                        <div class="mb-2">
+                            <i class="fas fa-chart-line fa-2x text-warning"></i>
+                        </div>
+                        <h6>3. Analyze Data</h6>
+                        <p class="text-muted small">Explore voting patterns and insights</p>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                        <div class="mb-2">
+                            <i class="fas fa-balance-scale fa-2x text-info"></i>
+                        </div>
+                        <h6>4. Compare Cities</h6>
+                        <p class="text-muted small">Side-by-side analysis between cities</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Load session cities info
+document.addEventListener('DOMContentLoaded', function() {
+    {% if session.session_id %}
+    fetch('/api/session/cities')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.cities.length > 0) {
+                const container = document.getElementById('sessionCities');
+                const cityList = Object.values(data.city_info).join(', ');
+                container.innerHTML = '<strong>Cities with data:</strong> ' + cityList;
+            }
+        })
+        .catch(error => console.log('Session info error:', error));
+    {% endif %}
+
+    // Home page - no auto-selection needed
+});
+</script>
+{% endblock %}
