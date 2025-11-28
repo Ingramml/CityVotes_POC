@@ -1,0 +1,881 @@
+{
+  "success": false,
+  "message": "AI-powered extraction: 33 votes with 64.3% quality",
+  "votes": [
+    {
+      "agenda_item_number": "35",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "approve Consent Calendar Item Nos. 8 through 41 with the exception of Item Nos. 10, 11, 15, 27, 28, 34, and 38 pulled for separate discussion and consideration and Item No. 35 removed from consideration",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "10",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "approve the recommended action for Item No. 10",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "11",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 6,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "approve the recommended action for Item No. 11",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "15",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "approve the recommended action for Item No. 15",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "27",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "approve the recommended action for Item No. 27 and direct staff to return with options for the Youth Commission",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "28",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 4,
+        "noes": 3,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Penaloza": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye",
+        "Hernandez": "Nay",
+        "Lopez": "Nay",
+        "Vazquez": "Nay"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "approve the recommended action for Item No. 28, as amended with the removal of the rental component and to keep the response deadline open with status updates by staff",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "34",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "approve the recommended action for Item No. 34",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "38",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "approve the recommended action for Item No. 38, as amended to pursue Santa Ana vendors",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "43",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "approve the recommended action for Item No. 43",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "12",
+      "agenda_item_title": "Appropriations Adjustment Recognizing Grant Revenue in the Amount of $1,086,754",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 12",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "13",
+      "agenda_item_title": "Approve Appropriation Adjustment in the Amount of $1,150,000 and Additional",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 13",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "14",
+      "agenda_item_title": "Approve an Appropriation Adjustment for the Santa Ana Regional Transportation",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 14",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "16",
+      "agenda_item_title": "Award a Purchase Order to Econolite Control Products, Inc. in an Amount of $94,720",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 16",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "17",
+      "agenda_item_title": "Award Aggregate Inventory Blanket Order Contracts for Water Meter Boxes and Lids",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 17",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "18",
+      "agenda_item_title": "Approve an Appropriation Adjustment and a Lease Agreement with RailWorks Track",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 18",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "19",
+      "agenda_item_title": "Approve an Appropriation Adjustment and Approve an Eighth Amendment with",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 19",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "20",
+      "agenda_item_title": "17.Award Aggregate Inventory Blanket Order Contracts for Water Meter Boxes and Lids",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 20",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "21",
+      "agenda_item_title": "Approve an Agreement with Working Wardrobes to Provide Workforce Development",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 21",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "22",
+      "agenda_item_title": "Agreement with Torti Gallas + Partners, Inc. (TGP) to Assist the City with the",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 22",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "23",
+      "agenda_item_title": "11.Homeless Services Quarterly Report for the Period of October 1, 2023 through",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 23",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "24",
+      "agenda_item_title": "Notification 48 hours prior to the Meeting will enable",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 24",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "25",
+      "agenda_item_title": "Ordinance Amendment No. 2023\u00ad04 amending Article II.II of Chapter 2 (Sunshine",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 25",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "26",
+      "agenda_item_title": "Appoint Nathaniel Greensides Nominated by Councilmember Hernandez as the Ward",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 26",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "29",
+      "agenda_item_title": "Approve an Appropriation Adjustment to Recognize Additional Measure M2 Regional",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 29",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "30",
+      "agenda_item_title": "Approve an Appropriation Adjustment and Award a Purchase Order to National Auto",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 30",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "31",
+      "agenda_item_title": "Authorize an Appropriation Adjustment and Award a Purchase Order Contract to",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 31",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "32",
+      "agenda_item_title": "Award a Purchase Order in the Amount of $71,532 to AirGaps, LLC for Firewall",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 32",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "33",
+      "agenda_item_title": "Amend Blanket Order Contract with Smart & Final Stores LLC for Sundry Food and",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 33",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "36",
+      "agenda_item_title": "2. Authorize an Appropriation Adjustment for $732,955 from District 2 Acquisition and",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 36",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "37",
+      "agenda_item_title": "Agreement with The Critter Care Center, Inc. for Veterinary Services for the Santa Ana",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 37",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "39",
+      "agenda_item_title": "Approve a Three\u00adYear Agreement with the Orange County School of the Arts for",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 39",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "40",
+      "agenda_item_title": "Approve an Appropriation Adjustment and Lease Agreement with Aldridge Electric,",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 40",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "41",
+      "agenda_item_title": "Approve Agreements for Automotive, Motorcycle, Truck, and Heavy Equipment",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 41",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    }
+  ],
+  "extraction_metadata": {
+    "agent_name": "AIPoweredSantaAnaExtractor",
+    "agent_version": "2.0.0",
+    "city": "Santa Ana",
+    "extraction_timestamp": "2025-11-27T12:24:22.162816",
+    "method_used": "ai",
+    "confidence_score": 0.95,
+    "learning_stats": {
+      "total_extractions": 1,
+      "ai_fallback_used": 1,
+      "quality_improvements": 1,
+      "pattern_learning_events": 0
+    }
+  },
+  "validation_results": {
+    "quality_score": 0.6425925925925928,
+    "validation_passed": false,
+    "processing_notes": [
+      "AI extraction successful"
+    ]
+  },
+  "factory_metadata": {
+    "extractor_used": "AIPoweredSantaAnaExtractor",
+    "city_detected": "Santa Ana",
+    "confidence_score": 0.95,
+    "document_sources": {
+      "agenda_file": "extractors/santa_ana/2024/source_documents/20240220_agenda_regular_city_council_and_special_housing_authority_meeting.txt",
+      "minutes_file": "extractors/santa_ana/2024/source_documents/20240220_minutes_regular_city_council_and_special_housing_authority.txt"
+    }
+  }
+}

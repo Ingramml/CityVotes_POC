@@ -1,0 +1,387 @@
+{
+  "success": false,
+  "message": "AI-powered extraction: 14 votes with 62.5% quality",
+  "votes": [
+    {
+      "agenda_item_number": "15",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "approve Consent Calendar Item Nos. 5 through 17 with the exception of Item No. 15 pulled for separate discussion and consideration",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "11",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 6,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "approve the recommended action for Item No. 11 as part of the consent calendar",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "18",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 5,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "reduce public comment time to one minute per speaker and end at two hours of public comment",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "5",
+      "agenda_item_title": "Agenda Item 5",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 5",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "6",
+      "agenda_item_title": "Agenda Item 6",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 6",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "7",
+      "agenda_item_title": "Agenda Item 7",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 7",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "8",
+      "agenda_item_title": "Agenda Item 8",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 8",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "9",
+      "agenda_item_title": "Agenda Item 9",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 9",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "10",
+      "agenda_item_title": "Agenda Item 10",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 10",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "12",
+      "agenda_item_title": "Agenda Item 12",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 12",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "13",
+      "agenda_item_title": "Agenda Item 13",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 13",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "14",
+      "agenda_item_title": "Agenda Item 14",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 14",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "16",
+      "agenda_item_title": "Agenda Item 16",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 16",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "17",
+      "agenda_item_title": "Agenda Item 17",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 17",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    }
+  ],
+  "extraction_metadata": {
+    "agent_name": "AIPoweredSantaAnaExtractor",
+    "agent_version": "2.0.0",
+    "city": "Santa Ana",
+    "extraction_timestamp": "2025-11-27T11:09:09.494102",
+    "method_used": "ai",
+    "confidence_score": 0.95,
+    "learning_stats": {
+      "total_extractions": 2,
+      "ai_fallback_used": 2,
+      "quality_improvements": 1,
+      "pattern_learning_events": 0
+    }
+  },
+  "validation_results": {
+    "quality_score": 0.6249999999999999,
+    "validation_passed": false,
+    "processing_notes": [
+      "AI extraction successful"
+    ]
+  },
+  "factory_metadata": {
+    "extractor_used": "AIPoweredSantaAnaExtractor",
+    "city_detected": "Santa Ana",
+    "confidence_score": 0.95,
+    "document_sources": {
+      "agenda_file": "extractors/santa_ana/2024/source_documents/20240305_agenda_regular_city_council_meeting.txt",
+      "minutes_file": "extractors/santa_ana/2024/source_documents/20240305_minutes_regular_city_council_meeting.txt"
+    }
+  }
+}

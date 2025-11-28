@@ -1,0 +1,363 @@
+{
+  "success": false,
+  "message": "AI-powered extraction: 13 votes with 62.7% quality",
+  "votes": [
+    {
+      "agenda_item_number": "15",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "approve Consent Calendar Item Nos. 5 through 17 with the exception of Item No. 15 pulled for separate discussion and consideration",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "11",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 6,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "approve the recommended action for Item No. 11 as part of the consent calendar",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "18",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 5,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "reduce public comment time to one minute per speaker and end at two hours of public comment",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "6",
+      "agenda_item_title": "9(d)(2) of the Government Code: Two (2)",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 6",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "7",
+      "agenda_item_title": "6(a):",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 7",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "8",
+      "agenda_item_title": "Receive and File Quarterly Report of Investments as of December 31, 2023",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 8",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "9",
+      "agenda_item_title": "Receive and File Quarterly Report of Contracts up to $50,000 for Non\u00adPublic Works",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 9",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "10",
+      "agenda_item_title": "Approve a Purchase Order to The Charles Machine Works Inc. for Sewer Lining",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 10",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "12",
+      "agenda_item_title": "Award a Blanket Order Contract to Hach Company for Water Quality Testing Supplies,",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 12",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "13",
+      "agenda_item_title": "Amend Aggregate Blanket Order Contracts for Waterworks Fittings and Supplies with",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 13",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "14",
+      "agenda_item_title": "Amend the Agreement with Service First for Pool Equipment Repair Services on an",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 14",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "16",
+      "agenda_item_title": "Agreements with Galls, LLC and L.N. Curtis & Sons for Police Uniforms, Accessories,",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 16",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "17",
+      "agenda_item_title": "Adopt a Resolution to Appoint a Voting Delegate and an Alternate to the Independent",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 17",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    }
+  ],
+  "extraction_metadata": {
+    "agent_name": "AIPoweredSantaAnaExtractor",
+    "agent_version": "2.0.0",
+    "city": "Santa Ana",
+    "extraction_timestamp": "2025-11-27T12:24:22.196230",
+    "method_used": "ai",
+    "confidence_score": 0.95,
+    "learning_stats": {
+      "total_extractions": 2,
+      "ai_fallback_used": 2,
+      "quality_improvements": 1,
+      "pattern_learning_events": 0
+    }
+  },
+  "validation_results": {
+    "quality_score": 0.6269230769230768,
+    "validation_passed": false,
+    "processing_notes": [
+      "AI extraction successful"
+    ]
+  },
+  "factory_metadata": {
+    "extractor_used": "AIPoweredSantaAnaExtractor",
+    "city_detected": "Santa Ana",
+    "confidence_score": 0.95,
+    "document_sources": {
+      "agenda_file": "extractors/santa_ana/2024/source_documents/20240305_agenda_regular_city_council_meeting.txt",
+      "minutes_file": "extractors/santa_ana/2024/source_documents/20240305_minutes_regular_city_council_meeting.txt"
+    }
+  }
+}

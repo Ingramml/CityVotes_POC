@@ -117,11 +117,47 @@ class AIPoweredSantaAnaExtractor(VoteExtractionAgent):
             if validation_score < 0.7:
                 logger.info("Regex validation failed, using AI fallback")
                 ai_result = self._ai_extraction_fallback(clean_minutes, agenda_content, regex_result)
+
+                # Filter AI fallback results to remove excluded votes
+                filtered_ai_votes = [v for v in ai_result.votes if self._should_include_vote(v)]
+                excluded_count = len(ai_result.votes) - len(filtered_ai_votes)
+                if excluded_count > 0:
+                    logger.info(f"Filtered {excluded_count} excluded votes from AI fallback (Housing Authority, Excused Absences, etc.)")
+                ai_result.votes = filtered_ai_votes
+
+                # CRITICAL FIX: Merge consent calendar votes from regex with AI votes
+                # Don't overwrite - consent votes are valid even if regex validation failed
+                consent_votes = [v for v in regex_result.votes if 'consent calendar' in (v.validation_notes[0] if v.validation_notes else '').lower()]
+                if consent_votes:
+                    logger.info(f"Merging {len(consent_votes)} consent calendar votes with {len(ai_result.votes)} AI-extracted votes")
+                    # Add consent votes that aren't already in AI result
+                    ai_item_nums = set(v.agenda_item_number for v in ai_result.votes)
+                    for vote in consent_votes:
+                        if vote.agenda_item_number not in ai_item_nums:
+                            ai_result.votes.append(vote)
+
                 final_result = ai_result
                 self.stats["ai_fallback_used"] += 1
             else:
                 final_result = regex_result
                 final_result.method_used = "regex"
+
+            # FINAL DEDUPLICATION: Remove any remaining duplicates after all merging
+            seen_final = {}
+            deduplicated_final = []
+            duplicate_count = 0
+
+            for vote in final_result.votes:
+                if vote.agenda_item_number not in seen_final:
+                    seen_final[vote.agenda_item_number] = vote
+                    deduplicated_final.append(vote)
+                else:
+                    duplicate_count += 1
+                    logger.debug(f"Removing duplicate in final result: {vote.agenda_item_number}")
+
+            if duplicate_count > 0:
+                logger.info(f"Removed {duplicate_count} duplicate(s) from final result")
+                final_result.votes = deduplicated_final
 
             # Learn from this extraction
             self._learn_from_extraction(final_result, clean_minutes)
@@ -161,11 +197,272 @@ class AIPoweredSantaAnaExtractor(VoteExtractionAgent):
 
         return content.strip()
 
+    def _extract_consent_calendar_votes(self, minutes_content: str, agenda_content: str) -> List[VoteRecord]:
+        """
+        Extract consent calendar votes - CRITICAL for Santa Ana (76% of votes)
+
+        Real patterns from minutes:
+        - "moved to approve Consent Calendar Item Nos. 8 through 41"
+        - "Consent Calendar Items: 8 through 37" + "moved to approve"
+        """
+        consent_votes = []
+
+        # Try multiple patterns to handle format variations
+        patterns = [
+            # Pattern 1: "moved to approve ... Item Nos. X through Y" (2/20/24, 3/5/24 format)
+            (
+                r'moved\s+to\s+approve.*?Consent\s+Calendar\s+Item\s+Nos?\.?\s+'
+                r'(\d+)\s+through\s+(\d+)'
+                r'(?:.*?with\s+the\s+exception\s+of\s+Item\s+Nos?\.?\s+([0-9,\sand]+))?'
+                r'(?:.*?removed.*?(?:Item\s+Nos?\.?\s+([0-9,\sand]+)))?'
+            ),
+            # Pattern 2: "Consent Calendar Items: X through Y" (8/20/24 format)
+            (
+                r'Consent\s+Calendar\s+Items?:?\s+(\d+)\s+through\s+(\d+).*?'
+                r'moved\s+to\s+approve'
+                r'(?:.*?with\s+the\s+exception\s+of\s+Item\s+Nos?\.?\s+([0-9,\sand]+))?'
+                r'(?:.*?(?:pulled|removed).*?(?:Item\s+Nos?\.?\s+([0-9,\sand]+)))?'
+            ),
+        ]
+
+        # Try each pattern
+        all_matches = []
+        for pattern in patterns:
+            matches = list(re.finditer(pattern, minutes_content, re.IGNORECASE | re.DOTALL))
+            if matches:
+                all_matches.extend(matches)
+                logger.debug(f"Consent pattern matched: {pattern[:50]}...")
+
+        # If no matches, log for debugging
+        if not all_matches:
+            logger.warning("No consent calendar pattern matched")
+            # Try to find consent calendar mentions for debugging
+            if re.search(r'Consent\s+Calendar', minutes_content, re.IGNORECASE):
+                logger.debug("Consent Calendar mentioned in minutes but pattern didn't match")
+
+        matches = all_matches
+
+        for match in matches:
+            try:
+                start_item = int(match.group(1))
+                end_item = int(match.group(2))
+                exceptions_text = match.group(3) if match.group(3) else ""
+                removed_text = match.group(4) if match.group(4) else ""
+
+                # Get all items in range
+                all_items = list(range(start_item, end_item + 1))
+
+                # Parse exceptions (pulled items)
+                exceptions = set()
+                if exceptions_text:
+                    exception_nums = re.findall(r'\d+', exceptions_text)
+                    exceptions = set(int(n) for n in exception_nums)
+
+                # Parse removed items
+                if removed_text:
+                    removed_nums = re.findall(r'\d+', removed_text)
+                    exceptions.update(int(n) for n in removed_nums)
+
+                # Items approved in consent = all_items - exceptions
+                approved_items = [item for item in all_items if item not in exceptions]
+
+                # Get vote tally from the motion block
+                motion_block = minutes_content[max(0, match.start()-50):min(len(minutes_content), match.end()+300)]
+                tally = self._extract_tally_from_block(motion_block)
+                outcome = self._extract_outcome_from_block(motion_block)
+
+                logger.info(f"Consent calendar: Items {start_item}-{end_item}, exceptions: {exceptions}, approved: {len(approved_items)}")
+
+                # Create a vote record for each approved item
+                for item_num in approved_items:
+                    # Get item title from agenda
+                    item_title = self._get_agenda_item_title(str(item_num), agenda_content)
+
+                    vote = VoteRecord(
+                        motion_id=f"consent_{item_num}",
+                        agenda_item_number=str(item_num),
+                        agenda_item_title=item_title,
+                        outcome=outcome,
+                        vote_count=f"{tally['ayes']}-{tally['noes']}",
+                        member_votes={},  # Consent items typically don't list individual votes
+                        tally=tally,
+                        recusals={},
+                        motion_context=MotionContext(
+                            id=f"consent_motion_{item_num}",
+                            type='original',
+                            text=f"Approve consent calendar Item {item_num}",
+                            mover="Unknown",
+                            seconder="Unknown",
+                            agenda_item=str(item_num),
+                            status='voted'
+                        ),
+                        validation_notes=["Extracted from consent calendar"]
+                    )
+
+                    if self._should_include_vote(vote):
+                        consent_votes.append(vote)
+
+            except Exception as e:
+                logger.warning(f"Failed to parse consent calendar block: {e}")
+                import traceback
+                traceback.print_exc()
+                continue
+
+        # Deduplicate by agenda item number (keep first occurrence)
+        seen_items = set()
+        deduplicated_votes = []
+        for vote in consent_votes:
+            if vote.agenda_item_number not in seen_items:
+                seen_items.add(vote.agenda_item_number)
+                deduplicated_votes.append(vote)
+            else:
+                logger.debug(f"Removing duplicate consent item: {vote.agenda_item_number}")
+
+        if len(consent_votes) != len(deduplicated_votes):
+            logger.info(f"Removed {len(consent_votes) - len(deduplicated_votes)} duplicate consent items")
+
+        return deduplicated_votes
+
+    def _parse_item_number_range(self, text: str) -> List[int]:
+        """
+        Parse item numbers from consent calendar text
+        Examples:
+        - "8, 9, and 13 through 33" -> [8, 9, 13, 14, ..., 33]
+        - "8, 9, 13-33" -> [8, 9, 13, 14, ..., 33]
+        """
+        item_numbers = set()
+
+        # Find individual numbers
+        individual = re.findall(r'\b(\d+)\b', text)
+
+        # Find ranges (through/-)
+        ranges = re.findall(r'(\d+)\s*(?:through|[-–])\s*(\d+)', text, re.IGNORECASE)
+
+        # Add individual numbers
+        for num in individual:
+            item_numbers.add(int(num))
+
+        # Add ranges
+        for start, end in ranges:
+            start_num = int(start)
+            end_num = int(end)
+            # Remove the endpoints if they were added as individual
+            item_numbers.discard(start_num)
+            item_numbers.discard(end_num)
+            # Add the full range
+            for i in range(start_num, end_num + 1):
+                item_numbers.add(i)
+
+        return sorted(list(item_numbers))
+
+    def _extract_tally_from_block(self, block: str) -> Dict[str, int]:
+        """Extract vote tally from motion block"""
+
+        # Look for "7-0" pattern
+        tally_match = re.search(r'(\d+)\s*[-–]\s*(\d+)', block)
+        if tally_match:
+            return {
+                'ayes': int(tally_match.group(1)),
+                'noes': int(tally_match.group(2)),
+                'abstain': 0,
+                'absent': 0
+            }
+
+        # Default for consent (usually unanimous)
+        return {'ayes': 7, 'noes': 0, 'abstain': 0, 'absent': 0}
+
+    def _extract_outcome_from_block(self, block: str) -> str:
+        """Extract vote outcome from motion block"""
+
+        if re.search(r'(?:carried|pass|approved)', block, re.IGNORECASE):
+            return "Pass"
+        elif re.search(r'(?:failed|reject)', block, re.IGNORECASE):
+            return "Fail"
+
+        # Default for consent calendar
+        return "Pass"
+
+    def _get_agenda_item_title(self, item_num: str, agenda_content: str) -> str:
+        """Extract agenda item title from agenda document"""
+
+        # Look for "Item 8: Title" or "8. Title" or "8.Title" patterns
+        patterns = [
+            rf'Item\s+{item_num}[:\.]?\s+([^\n]+)',
+            rf'{item_num}\.\s*([^\n]+)',  # \s* allows zero or more spaces after period
+        ]
+
+        for pattern in patterns:
+            match = re.search(pattern, agenda_content, re.IGNORECASE)
+            if match:
+                title = match.group(1).strip()
+                # Clean up title
+                title = re.sub(r'\s+', ' ', title)
+                return title[:200]  # Limit length
+
+        return f"Agenda Item {item_num}"
+
+    def _should_include_vote(self, vote: VoteRecord) -> bool:
+        """
+        Filter out votes that should not be included per user requirements
+        - Exclude "Excused Absences"
+        - Exclude "Minutes Approval"
+        - Exclude Housing Authority items (2024-XXX format)
+        - Exclude Public Comments sections
+        - Exclude procedural items that aren't votes
+        - Exclude non-numeric agenda items (parsing errors)
+        """
+
+        title_lower = vote.agenda_item_title.lower()
+
+        # Exclude non-numeric agenda items (these are parsing errors from AI)
+        # Valid agenda items should be numeric like "8", "15", "24"
+        if not vote.agenda_item_number.isdigit():
+            logger.debug(f"Excluding non-numeric agenda item: {vote.agenda_item_number}")
+            return False
+
+        # Exclude Excused Absences (manual extraction excludes these)
+        if 'excused absence' in title_lower:
+            logger.debug(f"Excluding Excused Absences vote: {vote.agenda_item_number}")
+            return False
+
+        # Exclude Minutes Approval (manual extraction excludes these)
+        # Use specific patterns to match common minute approval formats
+        if ('minutes approval' in title_lower or
+            'approve minutes' in title_lower or
+            'minutes from the' in title_lower or
+            'minutes of the' in title_lower or
+            title_lower.startswith('minutes')):
+            logger.debug(f"Excluding Minutes Approval vote: {vote.agenda_item_number}")
+            return False
+
+        # Exclude Public Comments sections
+        if 'public comment' in title_lower:
+            logger.debug(f"Excluding Public Comments section: {vote.agenda_item_number}")
+            return False
+
+        # Exclude Housing Authority items (format like "2024-002")
+        if re.match(r'^\d{4}-\d*$', vote.agenda_item_number):
+            logger.debug(f"Excluding Housing Authority vote: {vote.agenda_item_number}")
+            return False
+
+        # Exclude procedural items (written communications, etc.)
+        if any(phrase in title_lower for phrase in ['all written', 'written communication']):
+            logger.debug(f"Excluding procedural item: {vote.agenda_item_number}")
+            return False
+
+        return True
+
     def _regex_extraction(self, minutes_content: str, agenda_content: str) -> AIExtractionResult:
         """Traditional regex extraction with improvements"""
 
         votes = []
         processing_notes = []
+
+        # CRITICAL: Extract consent calendar votes first (76% of votes!)
+        consent_votes = self._extract_consent_calendar_votes(minutes_content, agenda_content)
+        if consent_votes:
+            votes.extend(consent_votes)
+            processing_notes.append(f"Extracted {len(consent_votes)} consent calendar votes")
 
         # Find Santa Ana vote blocks - look for YES: followed by member names and Status:
         vote_pattern = r'YES:\s*\d+\s*[–-]\s*([^\.]+?)\s*NO:\s*\d+.*?Status:\s*(\d+)\s*[–-]\s*(\d+)\s*[–-]\s*(\d+)\s*[–-]\s*(\d+)\s*[–-]\s*(Pass|Fail)'
@@ -179,20 +476,20 @@ class AIPoweredSantaAnaExtractor(VoteExtractionAgent):
                 vote_block = minutes_content[vote_start:vote_end]
 
                 vote = self._process_vote_block_enhanced(vote_block, agenda_content, i)
-                if vote:
+                if vote and self._should_include_vote(vote):
                     votes.append(vote)
             except Exception as e:
                 processing_notes.append(f"Block {i} failed: {str(e)}")
 
         # If no votes found with new pattern, try old pattern as fallback
-        if not votes:
+        if not votes and not consent_votes:
             motion_pattern = r'MOTION:\s*([^\.]+?)\s*(?:moved|seconded).*?(?=MOTION:|$)'
             motion_blocks = re.findall(motion_pattern, minutes_content, re.DOTALL | re.IGNORECASE)
 
             for i, block in enumerate(motion_blocks):
                 try:
                     vote = self._process_vote_block_enhanced(block, agenda_content, i)
-                    if vote:
+                    if vote and self._should_include_vote(vote):
                         votes.append(vote)
                 except Exception as e:
                     processing_notes.append(f"Fallback block {i} failed: {str(e)}")
@@ -337,15 +634,48 @@ class AIPoweredSantaAnaExtractor(VoteExtractionAgent):
         names = []
         for name in text.split(','):
             name = name.strip()
-            # Remove common prefixes
-            name = re.sub(r'(?:COUNCILMEMBER|MAYOR(?:\s+PRO\s+TEM)?)?\s*', '', name, flags=re.IGNORECASE)
+            # Remove common titles/prefixes
+            name = self._clean_member_name(name)
 
-            # Only keep valid names (alphabetic, proper case)
-            if name and len(name) > 2 and name.replace(' ', '').isalpha() and name[0].isupper():
-                names.append(name)
+            # Validate against known members
+            validated_name = self._validate_member_name(name)
+            if validated_name:
+                names.append(validated_name)
 
         logger.debug(f"Comma-separated extraction - input: {repr(text[:100])}, output: {names}")
         return names
+
+    def _clean_member_name(self, name: str) -> str:
+        """
+        Clean member name by removing titles and normalizing format
+        Filters out: Mayor, Pro Tem, Councilmember, Authority, Member, Vice, Chair
+        """
+
+        # Remove common titles
+        titles_to_remove = [
+            r'COUNCILMEMBER\s+',
+            r'MAYOR\s+PRO\s+TEM\s+',
+            r'MAYOR\s+',
+            r'VICE\s+MAYOR\s+',
+            r'AUTHORITY\s+MEMBER\s+',
+            r'AUTHORITY\s+',
+            r'MEMBER\s+',
+            r'VICE\s+CHAIR\s+',
+            r'CHAIR\s+',
+            r'CHAIRPERSON\s+',
+        ]
+
+        for title in titles_to_remove:
+            name = re.sub(title, '', name, flags=re.IGNORECASE)
+
+        # Clean whitespace
+        name = name.strip()
+
+        # Only return if it's a valid name (alphabetic)
+        if name and name.replace(' ', '').replace('-', '').isalpha() and len(name) > 2:
+            return name
+
+        return ""
 
     def _extract_motion_text_from_block(self, block: str) -> str:
         """Extract motion text from vote block context"""
@@ -375,19 +705,20 @@ class AIPoweredSantaAnaExtractor(VoteExtractionAgent):
         if not text or text.strip().upper() in ['NONE', 'N/A', '']:
             return []
 
-        # Remove common prefixes and clean
-        text = re.sub(r'(?:COUNCILMEMBER|MAYOR(?:\s+PRO\s+TEM)?)\s*', '', text, flags=re.IGNORECASE)
+        # Split by commas and spaces
         text = re.sub(r'[,\n\r]', ' ', text)
         text = re.sub(r'\s+', ' ', text).strip()
 
-        # Split on common separators and extract surnames
         potential_names = re.split(r'\s+', text)
 
         clean_names = []
         for name in potential_names:
-            name = name.strip().strip(',')
-            if len(name) > 2 and name.isalpha() and name[0].isupper():
-                clean_names.append(name)
+            # Clean the name
+            cleaned = self._clean_member_name(name)
+            # Validate against known members
+            validated = self._validate_member_name(cleaned)
+            if validated:
+                clean_names.append(validated)
 
         # Debug logging
         logger.debug(f"Member extraction - input: {repr(text[:100])}, output: {clean_names}")

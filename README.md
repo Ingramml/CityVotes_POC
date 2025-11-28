@@ -39,10 +39,22 @@ CityVotes_POC/
 ├── agents/                 # Sub-agent implementations
 ├── config/                 # Configuration files
 ├── data/                   # Sample data and uploads
-├── tests/                  # Test files
-├── app.py                  # Main application entry point
-├── requirements.txt        # Python dependencies
-└── README.md              # This file
+├── docs/                   # Documentation (organized by topic)
+│   ├── Architecture/      # System architecture and design
+│   ├── City_Specific/     # City-specific extraction guides
+│   ├── Guides/            # Operational guides
+│   ├── Implementation/    # Implementation instructions
+│   ├── Research/          # Research findings
+│   └── README.md         # Documentation index
+├── Documents/             # Project management docs
+├── Session_Archives/      # Archived session data
+├── daily_claude_logs/     # Claude session logging system
+├── app.py                 # Main application entry point
+├── run.py                 # Enhanced startup with port fallback
+├── requirements.txt       # Python dependencies
+├── test_all_agents.py    # Comprehensive agent tests
+├── test_all_city_extractors.py  # City extractor tests
+└── README.md             # This file
 ```
 
 ## 🚀 Quick Start
@@ -277,9 +289,79 @@ This is a POC project, but suggestions for improvements are welcome:
 4. Clear browser cache if experiencing issues
 
 ### Getting Help
-- Check the troubleshooting guide in `FLASK_TROUBLESHOOTING.md`
-- Review sub-agent documentation in `README_SubAgents.md`
-- Run diagnostic script: `python run_flask.py`
+- Check the troubleshooting guide in [FLASK_TROUBLESHOOTING.md](FLASK_TROUBLESHOOTING.md)
+- Review sub-agent documentation in [README_SubAgents.md](README_SubAgents.md)
+- Browse comprehensive documentation in [docs/](docs/)
+
+## 📚 Additional Documentation
+
+### Core Documentation
+- [Sub-Agent Architecture](README_SubAgents.md) - Detailed sub-agent documentation
+- [Vote Extraction Agent](README_VoteExtractionAgent.md) - Vote extraction system guide
+- [AI-Powered Extractor Guide](AI_POWERED_EXTRACTOR_GUIDE.md) - Self-improving AI extractor with learning capabilities
+- [Documentation Index](docs/README.md) - Complete documentation catalog
+
+### Storage and Workflow
+- [Storage & Extraction Quick Start](STORAGE_AND_EXTRACTION_QUICKSTART.md) - Fast reference for PDF storage and text extraction
+- [External Storage Structure Guide](EXTERNAL_STORAGE_STRUCTURE_GUIDE.md) - Complete guide for organizing PDFs and text files on external storage
+- [Selenium Download Setup](SELENIUM_DOWNLOAD_SETUP.md) - **Automated** download using Selenium browser automation (recommended)
+- [Manual Download Workflow](MANUAL_DOWNLOAD_WORKFLOW.md) - Manual download and organize PDFs from Santa Ana portal
+- [PDF to Text Workflow](PDF_TO_TEXT_WORKFLOW.md) - Detailed guide for PDF extraction and storage strategy
+- [CSV Extraction Workflow](CSV_EXTRACTION_WORKFLOW.md) - Working with pre-extracted vote data in CSV format
+
+### Quick Links
+- **Architecture**: See [docs/Architecture/](docs/Architecture/) for system design
+- **City-Specific**: See [docs/City_Specific/](docs/City_Specific/) for city extraction patterns
+- **Implementation**: See [docs/Implementation/](docs/Implementation/) for build guides
+- **Research**: See [docs/Research/](docs/Research/) for technical research
+
+## 🗑️ Code Consolidation (Nov 2025)
+
+This project was recently consolidated to reduce duplication and improve maintainability:
+
+### Files Removed
+- **7 port workaround Python scripts** (~1000 lines) - Various attempts to solve macOS AirPlay port 5000 conflicts
+  - `final_working_solution.py`, `final_port5000_solution.py`, `final_port5000_success.py`
+  - `force_port5000_native.py`, `start_port5000.py`
+  - `flask_example.py`, `run_flask.py`
+
+- **2 port workaround shell scripts** - Additional port 5000 workarounds
+  - `fix_port5000.sh` - AirPlay killer script
+  - `nginx_port5000_proxy.sh` - Nginx proxy setup (overkill)
+  - **Solution**: Use `run.py` which tries fallback ports automatically
+
+- **3 redundant test files** - Functionality consolidated into comprehensive tests
+  - `test_agents.py` → merged into `test_all_agents.py`
+  - `test_improved_extractor.py` → covered by city extractor tests
+  - `test_vote_extraction_integration.py` → functionality in `test_all_city_extractors.py`
+
+- **7 duplicate documentation files** - Consolidated into organized structure
+  - Implementation guides merged into master prompt
+  - Research documents consolidated
+  - Better organization in `docs/` folder
+
+- **1 redundant config** - `requirements_flask.txt` removed (use `requirements.txt`)
+
+### Impact
+- **20 files removed total** (9 Python scripts + 2 shell scripts + 3 test files + 7 docs + 1 config)
+- **Code reduction**: ~2,000+ lines of duplicate/dead code removed
+- **Documentation**: 22 docs → 15 organized files in structured folders
+- **Clarity**: Much easier to understand what each file does
+- **Maintenance**: Single source of truth for each concept
+
+### Utility Scripts Kept
+- [extract_votes.sh](extract_votes.sh) - Convenient wrapper for vote extraction commands
+- [batch_process_santa_ana.py](batch_process_santa_ana.py) - Production batch processor
+- [run_santa_ana_extraction.py](run_santa_ana_extraction.py) - AI-powered extraction runner
+- [analyze_santa_ana_results.py](analyze_santa_ana_results.py) - Results analysis and quality metrics
+- [Claude_transfer/pdf_to_text.py](Claude_transfer/pdf_to_text.py) - PDF to text conversion utility
+- [Claude_transfer/match_agenda_minutes.py](Claude_transfer/match_agenda_minutes.py) - Agenda/minutes pairing utility
+
+### Port 5000 Troubleshooting
+If you encounter "Address already in use" on port 5000 (macOS AirPlay Receiver):
+1. **Option 1**: Use `run.py` instead of `app.py` - it automatically tries fallback ports
+2. **Option 2**: Disable AirPlay Receiver in System Settings → Sharing → AirPlay Receiver
+3. **Option 3**: Manually specify a different port: `python app.py --port 5001`
 
 ---
 

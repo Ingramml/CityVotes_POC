@@ -1,0 +1,8 @@
+{
+  "success": false,
+  "message": "AI extraction error: expected str, bytes or os.PathLike object, not NoneType",
+  "votes": [],
+  "validation_results": {
+    "quality_score": 0.0
+  }
+}

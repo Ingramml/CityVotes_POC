@@ -1,0 +1,393 @@
+{
+  "success": false,
+  "message": "AI-powered extraction: 12 votes with 68.8% quality",
+  "votes": [
+    {
+      "agenda_item_number": "24",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "Motion text not found",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "24",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 6,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "approve the recommended action for Item No. 24, as part of the Consent Calendar",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "25",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "approve the recommended action for Item No. 25",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "29",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "approve the recommended action for Item No. 29, as amended to reduce the contingency amount to 10%",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "31",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "approve the recommended action for Item No. 31, as amended to change section 3H to require maintaining the licensed and perimeter area within 72-hours and to add to section three with a requirement to post signage",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "Amending",
+      "agenda_item_title": "Agenda Item Amending",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "approve the recommended",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "39",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 6,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "Motion text not found",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "24",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "Motion text not found",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "25",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 6,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "Motion text not found",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "31",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "Motion text not found",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "Amendment",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "approve the nomination for",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "Amending",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "approve the recommended",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    }
+  ],
+  "extraction_metadata": {
+    "agent_name": "AIPoweredSantaAnaExtractor",
+    "agent_version": "2.0.0",
+    "city": "Santa Ana",
+    "extraction_timestamp": "2025-11-26T22:29:06.660009",
+    "method_used": "ai",
+    "confidence_score": 0.95,
+    "learning_stats": {
+      "total_extractions": 1,
+      "ai_fallback_used": 1,
+      "quality_improvements": 1,
+      "pattern_learning_events": 1
+    }
+  },
+  "validation_results": {
+    "quality_score": 0.6875,
+    "validation_passed": false,
+    "processing_notes": [
+      "AI extraction successful"
+    ]
+  },
+  "factory_metadata": {
+    "extractor_used": "AIPoweredSantaAnaExtractor",
+    "city_detected": "Santa Ana",
+    "confidence_score": 0.95,
+    "document_sources": {
+      "agenda_file": "extractors/santa_ana/2024/source_documents/20240820_agenda_regular_city_council_meeting.txt",
+      "minutes_file": "extractors/santa_ana/2024/source_documents/20240820_minutes_regular_city_council_meeting.txt"
+    }
+  }
+}

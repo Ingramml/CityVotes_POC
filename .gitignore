@@ -66,3 +66,8 @@ santa_ana_mapping_report.csv
 # Uncomment if you want to exclude these:
 # Santa_Ana_website_plans/
 # Claude_transfer/
+
+# Claude Code Master Files
+.claude/
+master-files/
+*.csv

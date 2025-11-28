@@ -1,0 +1,761 @@
+{
+  "success": false,
+  "message": "AI-powered extraction: 29 votes with 61.6% quality",
+  "votes": [
+    {
+      "agenda_item_number": "24",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "Motion text not found",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "25",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "approve the recommended action for Item No. 25",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "29",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "approve the recommended action for Item No. 29, as amended to reduce the contingency amount to 10%",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "31",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Lopez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "approve the recommended action for Item No. 31, as amended to change section 3H to require maintaining the licensed and perimeter area within 72-hours and to add to section three with a requirement to post signage",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "39",
+      "agenda_item_title": "Item description",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 6,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Bacerra": "Aye",
+        "Hernandez": "Aye",
+        "Penaloza": "Aye",
+        "Vazquez": "Aye",
+        "Phan": "Aye",
+        "Amezcua": "Aye"
+      },
+      "vote_count": "Unknown",
+      "motion_text": "Motion text not found",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "10",
+      "agenda_item_title": "2024 Local Agency Biennial Notice RE: Conflict of Interest Code Review",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 10",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "11",
+      "agenda_item_title": "Receive and File the 2023\u00ad2024 Orange County Grand Jury Report: Talking Trash:",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 11",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "12",
+      "agenda_item_title": "Citywide Purchase Order Contract to Amazon Capital Services, Inc. for the Online",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 12",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "13",
+      "agenda_item_title": "Aggregate Purchase Order Contracts with Promotethis!, Impact PromoSource, LLC",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 13",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "14",
+      "agenda_item_title": "Purchase Order to AirGap Labs, LLC for Firewall Hardware and Services",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 14",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "15",
+      "agenda_item_title": "Aggregate Purchase Order Contracts to Bizon Group, Inc. and Southwest Mobile",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 15",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "16",
+      "agenda_item_title": "Purchase Order Contracts to Daniels Tire Service and Parkhouse Tire, Inc. for Vehicle",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 16",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "17",
+      "agenda_item_title": "Legal Services Agreement with Hanson Bridgett, LLP (General Fund)",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 17",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "18",
+      "agenda_item_title": "Agreement with BrightLife Designs, LLC for Holiday Decorations, Installation,",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 18",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "19",
+      "agenda_item_title": "Agreement with Cherry Bekaert Advisory LLC for Indirect Cost Allocation Plan and",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 19",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "20",
+      "agenda_item_title": "Agreement with Siemens Industry, Inc. for the Main Library and Outdoor Library at",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 20",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "21",
+      "agenda_item_title": "Amendment to Agreement with Group 4 Architecture, Research + Planning, Inc. for the",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 21",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "22",
+      "agenda_item_title": "Agreement with Pennell Consulting, Inc. for Jail Security Control System Upgrade",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 22",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "23",
+      "agenda_item_title": "Agreement with PowerDMS for Field Training Management Software and Community",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 23",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "26",
+      "agenda_item_title": "Construction Contract with Legion Contractors, Inc. for the Outdoor Library at Jerome",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 26",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "27",
+      "agenda_item_title": "Award a Construction Contract to CJ Concrete Construction for the Legacy Square",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 27",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "28",
+      "agenda_item_title": "Agreement with Bernards Bros, Inc., for Construction Management at Risk Services",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 28",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "30",
+      "agenda_item_title": "Agreement with E Source Companies, LLC for Automated Metering Infrastructure",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 30",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "32",
+      "agenda_item_title": "Affirm Approval of City Manager Employment Agreement",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 32",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "33",
+      "agenda_item_title": "Agreement with Franklin Covey Client Sales, Inc. for Training Resources for Citywide",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 33",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "34",
+      "agenda_item_title": "Adoption of an Extension and First Amendment to the Memorandum of Understanding",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 34",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "35",
+      "agenda_item_title": "Resolution to Effect Certain Changes to the City\u2019s Basic Classification and",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 35",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "36",
+      "agenda_item_title": "Resolution, Agreement, and Appropriation Adjustment Accepting the FY 2023",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 36",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    },
+    {
+      "agenda_item_number": "37",
+      "agenda_item_title": "Zoning Ordinance Amendment No. 2024\u00ad01 for South Coast Technology Center at",
+      "outcome": "Pass",
+      "tally": {
+        "ayes": 7,
+        "noes": 0,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {},
+      "vote_count": "7-0",
+      "motion_text": "Approve consent calendar Item 37",
+      "mover": "Unknown",
+      "seconder": "Unknown",
+      "recusals": {},
+      "validation_notes": [
+        "Extracted from consent calendar"
+      ],
+      "city_specific": {
+        "city": "Santa Ana",
+        "council_size": 9
+      }
+    }
+  ],
+  "extraction_metadata": {
+    "agent_name": "AIPoweredSantaAnaExtractor",
+    "agent_version": "2.0.0",
+    "city": "Santa Ana",
+    "extraction_timestamp": "2025-11-27T12:24:22.322776",
+    "method_used": "ai",
+    "confidence_score": 0.95,
+    "learning_stats": {
+      "total_extractions": 3,
+      "ai_fallback_used": 3,
+      "quality_improvements": 1,
+      "pattern_learning_events": 0
+    }
+  },
+  "validation_results": {
+    "quality_score": 0.6159003831417624,
+    "validation_passed": false,
+    "processing_notes": [
+      "AI extraction successful"
+    ]
+  },
+  "factory_metadata": {
+    "extractor_used": "AIPoweredSantaAnaExtractor",
+    "city_detected": "Santa Ana",
+    "confidence_score": 0.95,
+    "document_sources": {
+      "agenda_file": "extractors/santa_ana/2024/source_documents/20240820_agenda_regular_city_council_meeting.txt",
+      "minutes_file": "extractors/santa_ana/2024/source_documents/20240820_minutes_regular_city_council_meeting.txt"
+    }
+  }
+}
