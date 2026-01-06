@@ -53,11 +53,7 @@
                                             <div>
                                                 <div class="city-name">{{ city_name }}</div>
                                                 <div class="city-details">
-                                                    {% if city_key == 'santa_ana' %}
                                                     7 council members
-                                                    {% elif city_key == 'pomona' %}
-                                                    5 council members
-                                                    {% endif %}
                                                 </div>
                                             </div>
                                         </div>
@@ -238,12 +234,6 @@ document.addEventListener('DOMContentLoaded', function() {
             members: 7,
             description: 'Upload voting data for Santa Ana City Council meetings.',
             info: 'Council members include Mayor Valerie Amezcua and 6 council members.'
-        },
-        'pomona': {
-            name: 'Pomona',
-            members: 5,
-            description: 'Upload voting data for Pomona City Council meetings.',
-            info: 'Council includes 5 members representing different districts.'
         }
     };
 

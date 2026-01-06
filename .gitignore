@@ -71,3 +71,8 @@ santa_ana_mapping_report.csv
 .claude/
 master-files/
 *.csv
+santa_ana_text/*
+santa_ana_text
+/Users/michaelingram/Documents/GitHub/CityVotes_POC/santa_ana_text/*
+/Users/michaelingram/Documents/GitHub/CityVotes_POC/santa_ana_text
+*.txt

@@ -1,0 +1,283 @@
+{% extends "base.html" %}
+
+{% block title %}{{ item.agenda_item_title[:50] }} - {{ city_info.display_name }} - CityVotes POC{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb and Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-2">
+                <li class="breadcrumb-item"><a href="{{ url_for('dashboard.vote_summary') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('dashboard.agenda_items') }}">Agenda Items</a></li>
+                <li class="breadcrumb-item active">{{ item.agenda_item_number }}</li>
+            </ol>
+        </nav>
+        <div class="d-flex justify-content-between align-items-start">
+            <div>
+                <h2 class="text-primary">
+                    <i class="fas fa-file-alt me-2"></i>Item {{ item.agenda_item_number }}
+                </h2>
+                <h4 class="text-dark">{{ item.agenda_item_title }}</h4>
+                <p class="text-muted mb-0">
+                    <i class="fas fa-calendar me-1"></i>{{ item.meeting_date }}
+                    <span class="badge bg-secondary ms-2">{{ item.meeting_type }}</span>
+                    <span class="badge bg-light text-dark ms-2">{{ item.meeting_section }}</span>
+                </p>
+            </div>
+            <div>
+                <a href="{{ url_for('dashboard.agenda_items') }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-1"></i>Back to Items
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Outcome Banner -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="alert
+            {% if item.outcome == 'PASS' %}alert-success
+            {% elif item.outcome == 'FAIL' %}alert-danger
+            {% elif item.outcome == 'FLAG' %}alert-warning
+            {% else %}alert-secondary{% endif %}
+            d-flex justify-content-between align-items-center">
+            <div>
+                <h5 class="mb-0">
+                    {% if item.outcome == 'PASS' %}
+                    <i class="fas fa-check-circle me-2"></i>PASSED
+                    {% elif item.outcome == 'FAIL' %}
+                    <i class="fas fa-times-circle me-2"></i>FAILED
+                    {% elif item.outcome == 'FLAG' %}
+                    <i class="fas fa-flag me-2"></i>FLAGGED FOR REVIEW
+                    {% elif item.outcome == 'CONTINUED' %}
+                    <i class="fas fa-clock me-2"></i>CONTINUED
+                    {% elif item.outcome == 'REMOVED' %}
+                    <i class="fas fa-minus-circle me-2"></i>REMOVED
+                    {% else %}
+                    <i class="fas fa-question-circle me-2"></i>{{ item.outcome }}
+                    {% endif %}
+                </h5>
+            </div>
+            <div class="text-end">
+                <strong>{{ item.tally.ayes }} - {{ item.tally.noes }}</strong>
+                {% if item.tally.abstain > 0 %}
+                <small class="ms-2">({{ item.tally.abstain }} abstain)</small>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Description Section -->
+{% if item.agenda_item_description %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card dashboard-card">
+            <div class="card-header">
+                <h5><i class="fas fa-info-circle me-2"></i>Description</h5>
+            </div>
+            <div class="card-body">
+                <p class="mb-0">{{ item.agenda_item_description }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Vote Tally Summary -->
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card dashboard-card h-100">
+            <div class="card-header">
+                <h5><i class="fas fa-poll me-2"></i>Vote Tally</h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-3">
+                        <div class="display-4 text-success">{{ item.tally.ayes }}</div>
+                        <div class="text-muted">Ayes</div>
+                    </div>
+                    <div class="col-3">
+                        <div class="display-4 text-danger">{{ item.tally.noes }}</div>
+                        <div class="text-muted">Noes</div>
+                    </div>
+                    <div class="col-3">
+                        <div class="display-4 text-warning">{{ item.tally.abstain }}</div>
+                        <div class="text-muted">Abstain</div>
+                    </div>
+                    <div class="col-3">
+                        <div class="display-4 text-secondary">{{ item.tally.absent }}</div>
+                        <div class="text-muted">Absent</div>
+                    </div>
+                </div>
+
+                <!-- Visual Progress Bar -->
+                <div class="mt-4">
+                    {% set total = item.tally.ayes + item.tally.noes + item.tally.abstain + item.tally.absent %}
+                    {% if total > 0 %}
+                    <div class="progress" style="height: 30px;">
+                        <div class="progress-bar bg-success" style="width: {{ (item.tally.ayes / total * 100)|round(1) }}%">
+                            {{ item.tally.ayes }}
+                        </div>
+                        <div class="progress-bar bg-danger" style="width: {{ (item.tally.noes / total * 100)|round(1) }}%">
+                            {{ item.tally.noes }}
+                        </div>
+                        <div class="progress-bar bg-warning" style="width: {{ (item.tally.abstain / total * 100)|round(1) }}%">
+                            {% if item.tally.abstain > 0 %}{{ item.tally.abstain }}{% endif %}
+                        </div>
+                        <div class="progress-bar bg-secondary" style="width: {{ (item.tally.absent / total * 100)|round(1) }}%">
+                            {% if item.tally.absent > 0 %}{{ item.tally.absent }}{% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vote Breakdown Pie -->
+    <div class="col-md-6">
+        <div class="card dashboard-card h-100">
+            <div class="card-header">
+                <h5><i class="fas fa-chart-pie me-2"></i>Vote Distribution</h5>
+            </div>
+            <div class="card-body">
+                <div class="chart-container" style="height: 200px;">
+                    <canvas id="voteDistributionChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Individual Member Votes -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card dashboard-card">
+            <div class="card-header">
+                <h5><i class="fas fa-users me-2"></i>Council Member Votes</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for member in member_votes %}
+                    <div class="col-md-6 col-lg-4 mb-3">
+                        <div class="card h-100
+                            {% if member.vote == 'AYE' %}border-success
+                            {% elif member.vote == 'NAY' %}border-danger
+                            {% elif member.vote == 'ABSTAIN' %}border-warning
+                            {% elif member.vote == 'ABSENT' %}border-secondary
+                            {% elif member.vote == 'RECUSAL' %}border-info
+                            {% endif %}">
+                            <div class="card-body d-flex justify-content-between align-items-center py-2">
+                                <div>
+                                    <a href="{{ url_for('dashboard.member_profile', member_name=member.name) }}" class="text-decoration-none">
+                                        <strong>{{ member.name }}</strong>
+                                    </a>
+                                </div>
+                                <div>
+                                    {% if member.vote == 'AYE' %}
+                                    <span class="badge bg-success fs-6">
+                                        <i class="fas fa-thumbs-up me-1"></i>AYE
+                                    </span>
+                                    {% elif member.vote == 'NAY' %}
+                                    <span class="badge bg-danger fs-6">
+                                        <i class="fas fa-thumbs-down me-1"></i>NAY
+                                    </span>
+                                    {% elif member.vote == 'ABSTAIN' %}
+                                    <span class="badge bg-warning text-dark fs-6">
+                                        <i class="fas fa-minus me-1"></i>ABSTAIN
+                                    </span>
+                                    {% elif member.vote == 'ABSENT' %}
+                                    <span class="badge bg-secondary fs-6">
+                                        <i class="fas fa-user-slash me-1"></i>ABSENT
+                                    </span>
+                                    {% elif member.vote == 'RECUSAL' %}
+                                    <span class="badge bg-info fs-6">
+                                        <i class="fas fa-ban me-1"></i>RECUSAL
+                                    </span>
+                                    {% else %}
+                                    <span class="badge bg-light text-dark fs-6">{{ member.vote }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Navigation -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h6><i class="fas fa-compass me-2"></i>Navigate</h6>
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href="{{ url_for('dashboard.agenda_items') }}" class="btn btn-outline-primary w-100 mb-2">
+                            <i class="fas fa-list-alt me-2"></i>All Agenda Items
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="{{ url_for('dashboard.vote_summary') }}" class="btn btn-outline-primary w-100 mb-2">
+                            <i class="fas fa-chart-pie me-2"></i>Vote Summary
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="{{ url_for('dashboard.member_analysis') }}" class="btn btn-outline-primary w-100 mb-2">
+                            <i class="fas fa-users me-2"></i>Member Analysis
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Vote Distribution Pie Chart
+    const ctx = document.getElementById('voteDistributionChart');
+    if (ctx) {
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Aye', 'Nay', 'Abstain', 'Absent'],
+                datasets: [{
+                    data: [
+                        {{ item.tally.ayes }},
+                        {{ item.tally.noes }},
+                        {{ item.tally.abstain }},
+                        {{ item.tally.absent }}
+                    ],
+                    backgroundColor: [
+                        '#28a745',  // Green for Aye
+                        '#dc3545',  // Red for Nay
+                        '#ffc107',  // Yellow for Abstain
+                        '#6c757d'   // Gray for Absent
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

@@ -263,20 +263,31 @@ const ChartUtils = {
         const ctx = document.getElementById(canvasId);
         if (!ctx) return null;
 
-        const colors = CityVotes.getColors(cityKey);
+        // Color mapping for each outcome type
+        const outcomeColors = {
+            'PASS': '#28a745',      // Green
+            'FAIL': '#dc3545',      // Red
+            'FLAG': '#fd7e14',      // Orange
+            'CONTINUED': '#6c757d', // Gray
+            'REMOVED': '#adb5bd',   // Light gray
+            'TIE': '#ffc107'        // Yellow
+        };
+
+        // Filter out outcomes with 0 count
+        const filteredOutcomes = Object.entries(data.outcomes)
+            .filter(([key, val]) => val.count > 0);
+
+        const labels = filteredOutcomes.map(([key]) => key);
+        const values = filteredOutcomes.map(([key, val]) => val.count);
+        const colors = filteredOutcomes.map(([key]) => outcomeColors[key] || '#6c757d');
 
         return new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: Object.keys(data.outcomes),
+                labels: labels,
                 datasets: [{
-                    data: Object.values(data.outcomes).map(outcome => outcome.count),
-                    backgroundColor: [
-                        colors.success,  // Pass
-                        colors.danger,   // Fail
-                        '#ffc107',       // Tie
-                        '#6c757d'        // Continued
-                    ],
+                    data: values,
+                    backgroundColor: colors,
                     borderWidth: 2,
                     borderColor: '#fff'
                 }]
@@ -295,7 +306,8 @@ const ChartUtils = {
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                const outcome = Object.values(data.outcomes)[context.dataIndex];
+                                const key = labels[context.dataIndex];
+                                const outcome = data.outcomes[key];
                                 return `${context.label}: ${outcome.count} (${outcome.percentage}%)`;
                             }
                         }

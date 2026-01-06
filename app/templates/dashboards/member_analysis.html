@@ -24,6 +24,9 @@
                         <li><a class="dropdown-item" href="{{ url_for('dashboard.vote_summary') }}">
                             <i class="fas fa-chart-pie me-2"></i>Vote Summary
                         </a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('dashboard.agenda_items') }}">
+                            <i class="fas fa-list-alt me-2"></i>Agenda Items
+                        </a></li>
                         {% if available_cities|length > 1 %}
                         <li><a class="dropdown-item" href="{{ url_for('dashboard.city_comparison') }}">
                             <i class="fas fa-balance-scale me-2"></i>City Comparison
@@ -62,19 +65,19 @@
 
             <div class="vote-breakdown">
                 <div class="vote-stat aye">
-                    <div class="vote-stat-value">{{ member_stats.vote_breakdown.Aye }}</div>
+                    <div class="vote-stat-value">{{ member_stats.vote_breakdown.AYE }}</div>
                     <div class="vote-stat-label">Aye</div>
                 </div>
                 <div class="vote-stat nay">
-                    <div class="vote-stat-value">{{ member_stats.vote_breakdown.Nay }}</div>
+                    <div class="vote-stat-value">{{ member_stats.vote_breakdown.NAY }}</div>
                     <div class="vote-stat-label">Nay</div>
                 </div>
                 <div class="vote-stat abstain">
-                    <div class="vote-stat-value">{{ member_stats.vote_breakdown.Abstain }}</div>
+                    <div class="vote-stat-value">{{ member_stats.vote_breakdown.ABSTAIN }}</div>
                     <div class="vote-stat-label">Abstain</div>
                 </div>
                 <div class="vote-stat absent">
-                    <div class="vote-stat-value">{{ member_stats.vote_breakdown.Absent }}</div>
+                    <div class="vote-stat-value">{{ member_stats.vote_breakdown.ABSENT }}</div>
                     <div class="vote-stat-label">Absent</div>
                 </div>
             </div>
@@ -84,16 +87,21 @@
                 {% set total = member_stats.total_votes %}
                 {% if total > 0 %}
                 <div class="progress mb-1" style="height: 8px;">
-                    <div class="progress-bar bg-success" style="width: {{ (member_stats.vote_breakdown.Aye / total * 100)|round(1) }}%"
-                         data-bs-toggle="tooltip" title="Aye: {{ (member_stats.vote_breakdown.Aye / total * 100)|round(1) }}%"></div>
-                    <div class="progress-bar bg-danger" style="width: {{ (member_stats.vote_breakdown.Nay / total * 100)|round(1) }}%"
-                         data-bs-toggle="tooltip" title="Nay: {{ (member_stats.vote_breakdown.Nay / total * 100)|round(1) }}%"></div>
-                    <div class="progress-bar bg-warning" style="width: {{ (member_stats.vote_breakdown.Abstain / total * 100)|round(1) }}%"
-                         data-bs-toggle="tooltip" title="Abstain: {{ (member_stats.vote_breakdown.Abstain / total * 100)|round(1) }}%"></div>
-                    <div class="progress-bar bg-secondary" style="width: {{ (member_stats.vote_breakdown.Absent / total * 100)|round(1) }}%"
-                         data-bs-toggle="tooltip" title="Absent: {{ (member_stats.vote_breakdown.Absent / total * 100)|round(1) }}%"></div>
+                    <div class="progress-bar bg-success" style="width: {{ (member_stats.vote_breakdown.AYE / total * 100)|round(1) }}%"
+                         data-bs-toggle="tooltip" title="Aye: {{ (member_stats.vote_breakdown.AYE / total * 100)|round(1) }}%"></div>
+                    <div class="progress-bar bg-danger" style="width: {{ (member_stats.vote_breakdown.NAY / total * 100)|round(1) }}%"
+                         data-bs-toggle="tooltip" title="Nay: {{ (member_stats.vote_breakdown.NAY / total * 100)|round(1) }}%"></div>
+                    <div class="progress-bar bg-warning" style="width: {{ (member_stats.vote_breakdown.ABSTAIN / total * 100)|round(1) }}%"
+                         data-bs-toggle="tooltip" title="Abstain: {{ (member_stats.vote_breakdown.ABSTAIN / total * 100)|round(1) }}%"></div>
+                    <div class="progress-bar bg-secondary" style="width: {{ (member_stats.vote_breakdown.ABSENT / total * 100)|round(1) }}%"
+                         data-bs-toggle="tooltip" title="Absent: {{ (member_stats.vote_breakdown.ABSENT / total * 100)|round(1) }}%"></div>
                 </div>
                 {% endif %}
+            </div>
+            <div class="mt-2 text-center">
+                <a href="{{ url_for('dashboard.member_profile', member_name=member_name) }}" class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-user me-1"></i>View Profile
+                </a>
             </div>
         </div>
     </div>
@@ -236,10 +244,10 @@ document.addEventListener('DOMContentLoaded', function() {
     memberData['{{ member_name }}'] = {
         total_votes: {{ member_stats.total_votes }},
         vote_breakdown: {
-            Aye: {{ member_stats.vote_breakdown.Aye }},
-            Nay: {{ member_stats.vote_breakdown.Nay }},
-            Abstain: {{ member_stats.vote_breakdown.Abstain }},
-            Absent: {{ member_stats.vote_breakdown.Absent }}
+            Aye: {{ member_stats.vote_breakdown.AYE }},
+            Nay: {{ member_stats.vote_breakdown.NAY }},
+            Abstain: {{ member_stats.vote_breakdown.ABSTAIN }},
+            Absent: {{ member_stats.vote_breakdown.ABSENT }}
         }
     };
     {% endfor %}

@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+
+{% block title %}{{ member_name }} - {{ city_info.display_name }} - CityVotes POC{% endblock %}
+
+{% block content %}
+<!-- Profile Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-2">
+                        <li class="breadcrumb-item"><a href="{{ url_for('dashboard.vote_summary') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url_for('dashboard.member_analysis') }}">Member Analysis</a></li>
+                        <li class="breadcrumb-item active">{{ member_name }}</li>
+                    </ol>
+                </nav>
+                <h2 class="text-primary">
+                    <i class="fas fa-user-tie me-2"></i>{{ member_name }}
+                </h2>
+                <p class="text-muted mb-0">{{ city_info.display_name }} City Council</p>
+            </div>
+            <div>
+                <a href="{{ url_for('dashboard.member_analysis') }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-1"></i>Back to Members
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Key Stats Cards -->
+<div class="row mb-4">
+    <div class="col-md-3 col-sm-6 mb-3">
+        <div class="card metric-card">
+            <div class="metric-value">{{ member_stats.total_votes }}</div>
+            <div class="metric-label">Total Votes</div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-3">
+        <div class="card metric-card">
+            <div class="metric-value text-success">{{ member_stats.vote_breakdown.AYE }}</div>
+            <div class="metric-label">Aye Votes</div>
+            {% set aye_pct = (member_stats.vote_breakdown.AYE / member_stats.total_votes * 100) if member_stats.total_votes > 0 else 0 %}
+            <div class="metric-percentage positive">{{ aye_pct|round(1) }}%</div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-3">
+        <div class="card metric-card">
+            <div class="metric-value text-danger">{{ member_stats.vote_breakdown.NAY }}</div>
+            <div class="metric-label">Nay Votes</div>
+            {% set nay_pct = (member_stats.vote_breakdown.NAY / member_stats.total_votes * 100) if member_stats.total_votes > 0 else 0 %}
+            <div class="metric-percentage">{{ nay_pct|round(1) }}%</div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-3">
+        <div class="card metric-card">
+            <div class="metric-value text-secondary">{{ member_stats.vote_breakdown.ABSENT + member_stats.vote_breakdown.ABSTAIN }}</div>
+            <div class="metric-label">Absent/Abstain</div>
+            {% set other_pct = ((member_stats.vote_breakdown.ABSENT + member_stats.vote_breakdown.ABSTAIN) / member_stats.total_votes * 100) if member_stats.total_votes > 0 else 0 %}
+            <div class="metric-percentage">{{ other_pct|round(1) }}%</div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Row -->
+<div class="row mb-4">
+    <!-- Vote Breakdown Pie -->
+    <div class="col-md-6 mb-4">
+        <div class="card dashboard-card">
+            <div class="card-header">
+                <h5><i class="fas fa-chart-pie me-2"></i>Vote Breakdown</h5>
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="voteBreakdownChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Agreement with Other Members -->
+    <div class="col-md-6 mb-4">
+        <div class="card dashboard-card">
+            <div class="card-header">
+                <h5><i class="fas fa-handshake me-2"></i>Agreement with Other Members</h5>
+            </div>
+            <div class="card-body">
+                {% if agreements %}
+                <div class="agreement-list">
+                    {% for other_member, agreement_pct in agreements %}
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <a href="{{ url_for('dashboard.member_profile', member_name=other_member) }}" class="text-decoration-none">
+                            {{ other_member }}
+                        </a>
+                        <div class="d-flex align-items-center" style="width: 60%;">
+                            <div class="progress flex-grow-1 me-2" style="height: 8px;">
+                                <div class="progress-bar
+                                    {% if agreement_pct >= 80 %}bg-success{% elif agreement_pct >= 50 %}bg-warning{% else %}bg-danger{% endif %}"
+                                    style="width: {{ agreement_pct }}%"></div>
+                            </div>
+                            <span class="badge
+                                {% if agreement_pct >= 80 %}bg-success{% elif agreement_pct >= 50 %}bg-warning{% else %}bg-danger{% endif %}">
+                                {{ agreement_pct }}%
+                            </span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-muted">Not enough voting data to calculate agreements</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Voting History Table -->
+<div class="row">
+    <div class="col-12">
+        <div class="card dashboard-card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5><i class="fas fa-history me-2"></i>Voting History</h5>
+                <small class="text-light">{{ vote_history|length }} votes</small>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="voteHistoryTable">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Date</th>
+                                <th>Item #</th>
+                                <th>Title</th>
+                                <th>Section</th>
+                                <th class="text-center">Vote</th>
+                                <th class="text-center">Outcome</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for vote in vote_history %}
+                            <tr>
+                                <td><small>{{ vote.meeting_date }}</small></td>
+                                <td>{{ vote.agenda_item }}</td>
+                                <td>
+                                    <span title="{{ vote.title }}">
+                                        {{ vote.title[:50] }}{% if vote.title|length > 50 %}...{% endif %}
+                                    </span>
+                                </td>
+                                <td><small class="badge bg-secondary">{{ vote.meeting_section }}</small></td>
+                                <td class="text-center">
+                                    {% if vote.member_vote == 'AYE' %}
+                                    <span class="badge bg-success">AYE</span>
+                                    {% elif vote.member_vote == 'NAY' %}
+                                    <span class="badge bg-danger">NAY</span>
+                                    {% elif vote.member_vote == 'ABSTAIN' %}
+                                    <span class="badge bg-warning text-dark">ABSTAIN</span>
+                                    {% elif vote.member_vote == 'ABSENT' %}
+                                    <span class="badge bg-secondary">ABSENT</span>
+                                    {% elif vote.member_vote == 'RECUSAL' %}
+                                    <span class="badge bg-info">RECUSAL</span>
+                                    {% else %}
+                                    <span class="badge bg-light text-dark">{{ vote.member_vote }}</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    {% if vote.outcome == 'PASS' %}
+                                    <span class="badge bg-success">PASS</span>
+                                    {% elif vote.outcome == 'FAIL' %}
+                                    <span class="badge bg-danger">FAIL</span>
+                                    {% elif vote.outcome == 'FLAG' %}
+                                    <span class="badge bg-warning text-dark">FLAG</span>
+                                    {% else %}
+                                    <span class="badge bg-secondary">{{ vote.outcome }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Vote Breakdown Pie Chart
+    const ctx = document.getElementById('voteBreakdownChart');
+    if (ctx) {
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Aye', 'Nay', 'Abstain', 'Absent', 'Recusal'],
+                datasets: [{
+                    data: [
+                        {{ member_stats.vote_breakdown.AYE }},
+                        {{ member_stats.vote_breakdown.NAY }},
+                        {{ member_stats.vote_breakdown.ABSTAIN }},
+                        {{ member_stats.vote_breakdown.ABSENT }},
+                        {{ member_stats.vote_breakdown.RECUSAL }}
+                    ],
+                    backgroundColor: [
+                        '#28a745',  // Green for Aye
+                        '#dc3545',  // Red for Nay
+                        '#ffc107',  // Yellow for Abstain
+                        '#6c757d',  // Gray for Absent
+                        '#17a2b8'   // Cyan for Recusal
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

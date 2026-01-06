@@ -68,7 +68,7 @@ def vote_summary():
         {
             'name': name,
             'votes': stats['total_votes'],
-            'aye_percentage': round((stats['vote_breakdown']['Aye'] / stats['total_votes'] * 100) if stats['total_votes'] > 0 else 0, 1)
+            'aye_percentage': round((stats['vote_breakdown']['AYE'] / stats['total_votes'] * 100) if stats['total_votes'] > 0 else 0, 1)
         }
         for name, stats in member_analysis.items()
     ]
@@ -129,7 +129,7 @@ def member_analysis():
                     if member1 in member_votes and member2 in member_votes:
                         vote1 = member_votes[member1]
                         vote2 = member_votes[member2]
-                        if vote1 in ['Aye', 'Nay'] and vote2 in ['Aye', 'Nay']:
+                        if vote1 in ['AYE', 'NAY'] and vote2 in ['AYE', 'NAY']:
                             total_comparisons += 1
                             if vote1 == vote2:
                                 agreements += 1
@@ -208,7 +208,7 @@ def city_comparison():
     for city_key, data in comparison_data.items():
         vs = data['vote_summary']
         total_votes = vs['total_votes']
-        pass_count = vs['outcomes']['Pass']['count'] if 'Pass' in vs['outcomes'] else 0
+        pass_count = vs['outcomes']['PASS']['count'] if 'PASS' in vs['outcomes'] else 0
 
         comparison_metrics[city_key] = {
             'pass_rate': round((pass_count / total_votes * 100) if total_votes > 0 else 0, 1),
@@ -220,6 +220,157 @@ def city_comparison():
                          comparison_data=comparison_data,
                          comparison_metrics=comparison_metrics,
                          cities_count=len(comparison_data))
+
+@dashboard_bp.route('/member/<member_name>')
+def member_profile(member_name):
+    """Individual member profile page"""
+    current_city = session.get('current_city')
+    if not current_city:
+        return redirect(url_for('dashboard.dashboard_home'))
+
+    session_data, error_response = get_session_data_or_redirect(current_city)
+    if error_response:
+        return error_response
+
+    # Extract processed data
+    processed_data = session_data['processed_data']
+    member_analysis = processed_data['member_analysis']
+    city_info = processed_data['city_info']
+
+    # Check if member exists
+    if member_name not in member_analysis:
+        flash(f'Member "{member_name}" not found', 'error')
+        return redirect(url_for('dashboard.member_analysis'))
+
+    member_stats = member_analysis[member_name]
+
+    # Get voting history from raw data
+    raw_votes = session_data['raw_data']['votes']
+    member_vote_history = []
+    for vote in raw_votes:
+        member_votes = vote.get('member_votes', {})
+        if member_name in member_votes:
+            member_vote_history.append({
+                'agenda_item': vote.get('agenda_item_number', 'N/A'),
+                'title': vote.get('agenda_item_title', 'Unknown'),
+                'outcome': vote.get('outcome', 'Unknown'),
+                'member_vote': member_votes[member_name],
+                'meeting_date': vote.get('meeting_date', 'Unknown'),
+                'meeting_section': vote.get('meeting_section', 'Unknown')
+            })
+
+    # Calculate agreement with other members
+    member_names = list(member_analysis.keys())
+    agreements = {}
+    for other_member in member_names:
+        if other_member != member_name:
+            agree_count = 0
+            total_compare = 0
+            for vote in raw_votes:
+                mv = vote.get('member_votes', {})
+                if member_name in mv and other_member in mv:
+                    v1, v2 = mv[member_name], mv[other_member]
+                    if v1 in ['AYE', 'NAY'] and v2 in ['AYE', 'NAY']:
+                        total_compare += 1
+                        if v1 == v2:
+                            agree_count += 1
+            if total_compare > 0:
+                agreements[other_member] = round(agree_count / total_compare * 100, 1)
+
+    # Sort by agreement percentage
+    sorted_agreements = sorted(agreements.items(), key=lambda x: x[1], reverse=True)
+
+    return render_template('dashboards/member_profile.html',
+                         member_name=member_name,
+                         member_stats=member_stats,
+                         city_info=city_info,
+                         current_city=current_city,
+                         vote_history=member_vote_history,
+                         agreements=sorted_agreements)
+
+@dashboard_bp.route('/agenda-items')
+def agenda_items():
+    """Agenda Items Summary page - list of all agenda items"""
+    current_city = session.get('current_city')
+    if not current_city:
+        return redirect(url_for('dashboard.dashboard_home'))
+
+    session_data, error_response = get_session_data_or_redirect(current_city)
+    if error_response:
+        return error_response
+
+    city_info = session_data['processed_data']['city_info']
+    raw_votes = session_data['raw_data']['votes']
+
+    # Group votes by meeting date
+    meetings = {}
+    for vote in raw_votes:
+        meeting_date = vote.get('meeting_date', 'Unknown')
+        meeting_type = vote.get('meeting_type', 'Regular')
+        meeting_key = f"{meeting_date} ({meeting_type})"
+
+        if meeting_key not in meetings:
+            meetings[meeting_key] = {
+                'date': meeting_date,
+                'type': meeting_type,
+                'agenda_items': []
+            }
+
+        meetings[meeting_key]['agenda_items'].append({
+            'agenda_item': vote.get('agenda_item_number', 'N/A'),
+            'title': vote.get('agenda_item_title', 'Unknown'),
+            'outcome': vote.get('outcome', 'Unknown'),
+            'section': vote.get('meeting_section', 'Unknown'),
+            'example_id': vote.get('example_id', '')
+        })
+
+    # Sort meetings by date (newest first)
+    sorted_meetings = dict(sorted(meetings.items(), key=lambda x: x[1]['date'], reverse=True))
+
+    return render_template('dashboards/agenda_items.html',
+                         meetings=sorted_meetings,
+                         city_info=city_info,
+                         current_city=current_city,
+                         total_items=len(raw_votes))
+
+@dashboard_bp.route('/agenda-item/<item_id>')
+def agenda_item_detail(item_id):
+    """Individual Agenda Item page with vote details"""
+    current_city = session.get('current_city')
+    if not current_city:
+        return redirect(url_for('dashboard.dashboard_home'))
+
+    session_data, error_response = get_session_data_or_redirect(current_city)
+    if error_response:
+        return error_response
+
+    city_info = session_data['processed_data']['city_info']
+    raw_votes = session_data['raw_data']['votes']
+
+    # Find the specific agenda item
+    item_data = None
+    for vote in raw_votes:
+        if vote.get('example_id') == item_id:
+            item_data = vote
+            break
+
+    if not item_data:
+        flash(f'Agenda item "{item_id}" not found', 'error')
+        return redirect(url_for('dashboard.agenda_items'))
+
+    # Process member votes for display
+    member_votes_list = []
+    for member, vote_choice in item_data.get('member_votes', {}).items():
+        member_votes_list.append({
+            'name': member,
+            'vote': vote_choice
+        })
+
+    return render_template('dashboards/agenda_item_detail.html',
+                         item=item_data,
+                         member_votes=member_votes_list,
+                         city_info=city_info,
+                         current_city=current_city)
 
 @dashboard_bp.route('/switch-city/<city_name>')
 def switch_city(city_name):

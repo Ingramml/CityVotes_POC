@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}Agenda Items - {{ city_info.display_name }} - CityVotes POC{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="text-primary">
+                    <i class="fas fa-list-alt me-2"></i>Agenda Items
+                </h2>
+                <p class="text-muted mb-0">
+                    {{ city_info.display_name }} - {{ total_items }} total items across {{ meetings|length }} meetings
+                </p>
+            </div>
+            <div>
+                <a href="{{ url_for('dashboard.vote_summary') }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-1"></i>Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Meeting Sections -->
+{% for meeting_key, meeting_data in meetings.items() %}
+<div class="card dashboard-card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">
+            <i class="fas fa-calendar-alt me-2"></i>{{ meeting_data.date }}
+            <span class="badge bg-secondary ms-2">{{ meeting_data.type }}</span>
+        </h5>
+        <span class="badge bg-primary">{{ meeting_data.agenda_items|length }} items</span>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 100px;">Item #</th>
+                        <th>Title</th>
+                        <th style="width: 120px;">Section</th>
+                        <th style="width: 100px;" class="text-center">Outcome</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in meeting_data.agenda_items %}
+                    <tr class="agenda-item-row" style="cursor: pointer;" onclick="window.location='{{ url_for('dashboard.agenda_item_detail', item_id=item.example_id) }}'">
+                        <td>
+                            <strong>{{ item.agenda_item }}</strong>
+                        </td>
+                        <td>
+                            <a href="{{ url_for('dashboard.agenda_item_detail', item_id=item.example_id) }}" class="text-decoration-none text-dark">
+                                {{ item.title[:80] }}{% if item.title|length > 80 %}...{% endif %}
+                            </a>
+                        </td>
+                        <td>
+                            <small class="badge bg-light text-dark">{{ item.section }}</small>
+                        </td>
+                        <td class="text-center">
+                            {% if item.outcome == 'PASS' %}
+                            <span class="badge bg-success">PASS</span>
+                            {% elif item.outcome == 'FAIL' %}
+                            <span class="badge bg-danger">FAIL</span>
+                            {% elif item.outcome == 'FLAG' %}
+                            <span class="badge bg-warning text-dark">FLAG</span>
+                            {% elif item.outcome == 'CONTINUED' %}
+                            <span class="badge bg-info">CONTINUED</span>
+                            {% elif item.outcome == 'REMOVED' %}
+                            <span class="badge bg-secondary">REMOVED</span>
+                            {% else %}
+                            <span class="badge bg-light text-dark">{{ item.outcome }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<!-- Quick Stats -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h6><i class="fas fa-compass me-2"></i>Navigation</h6>
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href="{{ url_for('dashboard.vote_summary') }}" class="btn btn-outline-primary w-100 mb-2">
+                            <i class="fas fa-chart-pie me-2"></i>Vote Summary
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="{{ url_for('dashboard.member_analysis') }}" class="btn btn-outline-primary w-100 mb-2">
+                            <i class="fas fa-users me-2"></i>Member Analysis
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="{{ url_for('main.home') }}" class="btn btn-outline-secondary w-100 mb-2">
+                            <i class="fas fa-home me-2"></i>Home
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<style>
+.agenda-item-row:hover {
+    background-color: #f8f9fa;
+}
+</style>
+{% endblock %}
