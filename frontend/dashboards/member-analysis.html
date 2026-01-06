@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Analysis - CityVotes POC</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../css/main.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <i class="fas fa-vote-yea me-2"></i>CityVotes POC
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../upload.html">
+                            <i class="fas fa-upload me-1"></i>Upload Data
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-chart-bar me-1"></i>Dashboards
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="vote-summary.html">
+                                <i class="fas fa-chart-pie me-2"></i>Vote Summary
+                            </a></li>
+                            <li><a class="dropdown-item active" href="member-analysis.html">
+                                <i class="fas fa-users me-2"></i>Member Analysis
+                            </a></li>
+                            <li><a class="dropdown-item" href="city-comparison.html">
+                                <i class="fas fa-balance-scale me-2"></i>City Comparison
+                            </a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="navbar-text me-3" id="currentCityDisplay">
+                    <i class="fas fa-map-marker-alt me-1"></i>
+                    <span class="badge bg-light text-dark" id="currentCityBadge"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Alert Container -->
+    <div class="container mt-3" id="alertContainer"></div>
+
+    <!-- Main Content -->
+    <main class="container my-4">
+        <!-- Dashboard Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2 class="text-primary">
+                            <i class="fas fa-users me-2"></i>Member Analysis Dashboard
+                        </h2>
+                        <p class="text-muted mb-0" id="dashboardSubtitle">Loading...</p>
+                    </div>
+                    <div>
+                        <a href="vote-summary.html" class="btn btn-outline-primary">
+                            <i class="fas fa-chart-pie me-2"></i>Vote Summary
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="text-center py-5">
+            <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3 text-muted">Loading member data...</p>
+        </div>
+
+        <!-- Dashboard Content -->
+        <div id="dashboardContent" style="display: none;">
+            <!-- Alignment Highlights -->
+            <div class="row mb-4">
+                <div class="col-md-6 mb-4">
+                    <div class="card dashboard-card h-100">
+                        <div class="card-header bg-success text-white">
+                            <h5><i class="fas fa-handshake me-2"></i>Most Aligned Pairs</h5>
+                        </div>
+                        <div class="card-body" id="mostAlignedContainer">
+                            <!-- Most aligned pairs will be populated here -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card dashboard-card h-100">
+                        <div class="card-header bg-danger text-white">
+                            <h5><i class="fas fa-users-slash me-2"></i>Least Aligned Pairs</h5>
+                        </div>
+                        <div class="card-body" id="leastAlignedContainer">
+                            <!-- Least aligned pairs will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alignment Matrix -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card dashboard-card">
+                        <div class="card-header">
+                            <h5><i class="fas fa-th me-2"></i>Member Alignment Matrix</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted mb-3">
+                                This matrix shows how often each pair of council members vote the same way.
+                                Higher percentages (green) indicate more frequent agreement.
+                            </p>
+                            <div class="alignment-matrix table-responsive" id="alignmentMatrixContainer">
+                                <!-- Alignment matrix will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Member Cards -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card dashboard-card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5><i class="fas fa-user-friends me-2"></i>Individual Member Statistics</h5>
+                            <small class="text-light" id="memberCount">0 members</small>
+                        </div>
+                        <div class="card-body">
+                            <div class="row" id="memberCardsContainer">
+                                <!-- Member cards will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6><i class="fas fa-compass me-2"></i>Explore More</h6>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <a href="vote-summary.html" class="btn btn-outline-primary w-100 mb-2">
+                                        <i class="fas fa-chart-pie me-2"></i>Vote Summary
+                                    </a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="agenda-items.html" class="btn btn-outline-info w-100 mb-2">
+                                        <i class="fas fa-list-alt me-2"></i>Agenda Items
+                                    </a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="city-comparison.html" class="btn btn-outline-success w-100 mb-2">
+                                        <i class="fas fa-balance-scale me-2"></i>City Comparison
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- No Session Message -->
+        <div id="noSessionMessage" style="display: none;">
+            <div class="alert alert-warning text-center">
+                <i class="fas fa-exclamation-triangle fa-3x mb-3"></i>
+                <h4>No Data Available</h4>
+                <p>Please upload voting data first to view member analysis.</p>
+                <a href="../upload.html" class="btn btn-warning">
+                    <i class="fas fa-upload me-2"></i>Upload Data
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-light mt-5 py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h6>CityVotes POC - Two-City Vote Analysis Platform</h6>
+                    <p class="text-muted mb-0">Member Analysis Dashboard</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- API Client -->
+    <script src="../js/api.js"></script>
+    <!-- Main JS -->
+    <script src="../js/main.js"></script>
+
+    <script>
+    let dashboardData = null;
+
+    document.addEventListener('DOMContentLoaded', async function() {
+        console.log('CityVotes POC - Member Analysis Dashboard Loaded');
+
+        if (!CityVotesAPI.hasSession()) {
+            showNoSession();
+            return;
+        }
+
+        updateCityBadge();
+        await loadDashboard();
+    });
+
+    function showNoSession() {
+        document.getElementById('loadingSpinner').style.display = 'none';
+        document.getElementById('noSessionMessage').style.display = 'block';
+    }
+
+    function updateCityBadge() {
+        const currentCity = CityVotesAPI.getCurrentCity();
+        document.getElementById('currentCityBadge').textContent =
+            currentCity ? currentCity.replace('_', ' ').toUpperCase() : 'No City';
+    }
+
+    async function loadDashboard() {
+        try {
+            dashboardData = await CityVotesAPI.getMemberAnalysis();
+
+            document.getElementById('loadingSpinner').style.display = 'none';
+            document.getElementById('dashboardContent').style.display = 'block';
+
+            document.getElementById('dashboardSubtitle').textContent =
+                `${dashboardData.city_info.display_name} - Council Member Voting Patterns`;
+
+            renderAlignedPairs();
+            renderAlignmentMatrix();
+            renderMemberCards();
+
+        } catch (error) {
+            console.error('Error loading dashboard:', error);
+            document.getElementById('loadingSpinner').style.display = 'none';
+            showAlert(`Error loading dashboard: ${error.message}`, 'error');
+        }
+    }
+
+    function renderAlignedPairs() {
+        const mostAligned = dashboardData.most_aligned;
+        const leastAligned = dashboardData.least_aligned;
+
+        document.getElementById('mostAlignedContainer').innerHTML = mostAligned.map(pair => `
+            <div class="d-flex justify-content-between align-items-center mb-3 p-2 bg-light rounded">
+                <div>
+                    <strong>${pair.member1}</strong>
+                    <span class="text-muted mx-2">&</span>
+                    <strong>${pair.member2}</strong>
+                </div>
+                <span class="badge bg-success fs-6">${pair.score}%</span>
+            </div>
+        `).join('');
+
+        document.getElementById('leastAlignedContainer').innerHTML = leastAligned.map(pair => `
+            <div class="d-flex justify-content-between align-items-center mb-3 p-2 bg-light rounded">
+                <div>
+                    <strong>${pair.member1}</strong>
+                    <span class="text-muted mx-2">&</span>
+                    <strong>${pair.member2}</strong>
+                </div>
+                <span class="badge bg-danger fs-6">${pair.score}%</span>
+            </div>
+        `).join('');
+    }
+
+    function renderAlignmentMatrix() {
+        const alignmentData = dashboardData.alignment_data;
+        const members = Object.keys(alignmentData);
+
+        let html = '<table class="table table-bordered alignment-table">';
+
+        // Header row
+        html += '<thead><tr><th></th>';
+        members.forEach(member => {
+            const shortName = member.length > 15 ? member.substring(0, 15) + '...' : member;
+            html += `<th class="text-center" style="font-size: 0.8rem;">${shortName}</th>`;
+        });
+        html += '</tr></thead><tbody>';
+
+        // Data rows
+        members.forEach(member1 => {
+            const shortName = member1.length > 15 ? member1.substring(0, 15) + '...' : member1;
+            html += `<tr><td style="font-size: 0.8rem;"><strong>${shortName}</strong></td>`;
+
+            members.forEach(member2 => {
+                const score = alignmentData[member1][member2];
+                let colorClass = 'alignment-medium';
+
+                if (member1 === member2) {
+                    colorClass = 'bg-secondary text-white';
+                } else if (score >= 80) {
+                    colorClass = 'alignment-high';
+                } else if (score <= 50) {
+                    colorClass = 'alignment-low';
+                }
+
+                html += `<td class="alignment-cell ${colorClass}">${score}%</td>`;
+            });
+
+            html += '</tr>';
+        });
+
+        html += '</tbody></table>';
+
+        document.getElementById('alignmentMatrixContainer').innerHTML = html;
+    }
+
+    function renderMemberCards() {
+        const memberAnalysis = dashboardData.member_analysis;
+        const container = document.getElementById('memberCardsContainer');
+        const members = Object.entries(memberAnalysis);
+
+        document.getElementById('memberCount').textContent = members.length + ' members';
+
+        container.innerHTML = members.map(([name, stats]) => {
+            let participationClass = 'medium-participation';
+            if (stats.total_votes >= 400) {
+                participationClass = 'high-participation';
+            } else if (stats.total_votes < 200) {
+                participationClass = 'low-participation';
+            }
+
+            return `
+                <div class="col-md-6 col-lg-4 mb-3">
+                    <div class="member-card ${participationClass}">
+                        <div class="member-name">
+                            <a href="member-profile.html?name=${encodeURIComponent(name)}" class="text-decoration-none">
+                                ${name}
+                            </a>
+                        </div>
+                        <div class="text-muted mb-2">${stats.total_votes} total votes</div>
+                        <div class="vote-breakdown">
+                            <div class="vote-stat aye">
+                                <div class="vote-stat-value">${stats.vote_breakdown.AYE || 0}</div>
+                                <div class="vote-stat-label">AYE</div>
+                            </div>
+                            <div class="vote-stat nay">
+                                <div class="vote-stat-value">${stats.vote_breakdown.NAY || 0}</div>
+                                <div class="vote-stat-label">NAY</div>
+                            </div>
+                            <div class="vote-stat abstain">
+                                <div class="vote-stat-value">${stats.vote_breakdown.ABSTAIN || 0}</div>
+                                <div class="vote-stat-label">ABSTAIN</div>
+                            </div>
+                            <div class="vote-stat absent">
+                                <div class="vote-stat-value">${stats.vote_breakdown.ABSENT || 0}</div>
+                                <div class="vote-stat-label">ABSENT</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function showAlert(message, type = 'info') {
+        const container = document.getElementById('alertContainer');
+        const alert = document.createElement('div');
+        alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show`;
+        alert.innerHTML = `
+            <i class="fas fa-${type === 'error' ? 'exclamation-circle' : 'info-circle'} me-2"></i>
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        container.appendChild(alert);
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CityVotes POC</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/main.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-vote-yea me-2"></i>CityVotes POC
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="upload.html">
+                            <i class="fas fa-upload me-1"></i>Upload Data
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown" id="dashboardMenu" style="display: none;">
+                        <a class="nav-link dropdown-toggle" href="#" id="dashboardDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-chart-bar me-1"></i>Dashboards
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="dashboards/vote-summary.html">
+                                <i class="fas fa-chart-pie me-2"></i>Vote Summary
+                            </a></li>
+                            <li><a class="dropdown-item" href="dashboards/member-analysis.html">
+                                <i class="fas fa-users me-2"></i>Member Analysis
+                            </a></li>
+                            <li><a class="dropdown-item" href="dashboards/city-comparison.html">
+                                <i class="fas fa-balance-scale me-2"></i>City Comparison
+                            </a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <!-- Current City Display -->
+                <div class="navbar-text me-3" id="currentCityDisplay" style="display: none;">
+                    <i class="fas fa-map-marker-alt me-1"></i>
+                    <span class="badge bg-light text-dark" id="currentCityBadge"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Alert Container -->
+    <div class="container mt-3" id="alertContainer"></div>
+
+    <!-- Main Content -->
+    <main class="container my-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center mb-5">
+                    <h1 class="display-4 text-primary">
+                        <i class="fas fa-vote-yea me-3"></i>CityVotes POC
+                    </h1>
+                    <p class="lead">Two-City Vote Analysis Platform</p>
+                    <p class="text-muted">
+                        Upload and analyze city council voting data for Santa Ana and Pomona.
+                        Get insights into voting patterns, member behavior, and comparative analysis.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- City Selection Section -->
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                <div class="card dashboard-card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-city me-2"></i>Select a City</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted mb-4">Choose a city to view data or upload new voting records</p>
+                        <div class="row" id="cityCardsContainer">
+                            <!-- Cities will be loaded dynamically -->
+                            <div class="col-12 text-center">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Links Section -->
+        <div class="row mt-5">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-upload fa-3x text-warning mb-3"></i>
+                        <h5>Upload Data</h5>
+                        <p class="text-muted">
+                            Upload JSON voting data to analyze council meetings and member behavior.
+                        </p>
+                        <a href="upload.html" class="btn btn-warning">
+                            <i class="fas fa-upload me-2"></i>Upload Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-chart-bar fa-3x text-success mb-3"></i>
+                        <h5>View Dashboards</h5>
+                        <p class="text-muted">
+                            Three comprehensive dashboards: Vote Summary, Member Analysis, and City Comparison.
+                        </p>
+                        <a href="dashboards/vote-summary.html" class="btn btn-success" id="viewDashboardsBtn" style="display: none;">
+                            View Dashboards
+                        </a>
+                        <a href="upload.html" class="btn btn-outline-success" id="uploadFirstBtn">
+                            Upload Data First
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-file-code fa-3x text-info mb-3"></i>
+                        <h5>Sample Data</h5>
+                        <p class="text-muted">
+                            View sample JSON format and download example voting data files.
+                        </p>
+                        <button class="btn btn-info" onclick="showSampleData()">
+                            View Sample Data
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session Info (shown if session exists) -->
+        <div class="row mt-4" id="sessionInfoSection" style="display: none;">
+            <div class="col-12">
+                <div class="alert alert-info">
+                    <h6><i class="fas fa-info-circle me-2"></i>Session Information</h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Session ID:</strong> <span id="sessionIdDisplay"></span><br>
+                            <strong>Current City:</strong> <span id="sessionCityDisplay"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="sessionCitiesList"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How It Works Section -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="fas fa-question-circle me-2"></i>How It Works
+                        </h5>
+                        <div class="row">
+                            <div class="col-md-3 text-center mb-3">
+                                <div class="mb-2">
+                                    <i class="fas fa-city fa-2x text-primary"></i>
+                                </div>
+                                <h6>1. Choose City</h6>
+                                <p class="text-muted small">Select Santa Ana or Pomona to explore</p>
+                            </div>
+                            <div class="col-md-3 text-center mb-3">
+                                <div class="mb-2">
+                                    <i class="fas fa-info-circle fa-2x text-success"></i>
+                                </div>
+                                <h6>2. View City Info</h6>
+                                <p class="text-muted small">Learn about council members and structure</p>
+                            </div>
+                            <div class="col-md-3 text-center mb-3">
+                                <div class="mb-2">
+                                    <i class="fas fa-chart-line fa-2x text-warning"></i>
+                                </div>
+                                <h6>3. Analyze Data</h6>
+                                <p class="text-muted small">Explore voting patterns and insights</p>
+                            </div>
+                            <div class="col-md-3 text-center mb-3">
+                                <div class="mb-2">
+                                    <i class="fas fa-balance-scale fa-2x text-info"></i>
+                                </div>
+                                <h6>4. Compare Cities</h6>
+                                <p class="text-muted small">Side-by-side analysis between cities</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-light mt-5 py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h6>CityVotes POC - Two-City Vote Analysis Platform</h6>
+                    <p class="text-muted mb-0">
+                        Proof of concept for analyzing Santa Ana and Pomona city council voting data.
+                        Built with FastAPI, PostgreSQL, and vanilla JavaScript.
+                    </p>
+                </div>
+                <div class="col-md-4 text-end">
+                    <span class="text-muted">Frontend v1.0</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Sample Data Modal -->
+    <div class="modal fade" id="sampleDataModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-file-code me-2"></i>Sample Data Format</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Your JSON file should contain a <code>votes</code> array with the following structure:</p>
+                    <pre class="bg-light p-3 rounded"><code>{
+  "votes": [
+    {
+      "agenda_item_number": "7.1",
+      "agenda_item_title": "Budget Amendment",
+      "outcome": "PASS",
+      "tally": {
+        "ayes": 5,
+        "noes": 2,
+        "abstain": 0,
+        "absent": 0
+      },
+      "member_votes": {
+        "Mayor Smith": "AYE",
+        "Council Member Jones": "NAY"
+      },
+      "meeting_date": "2024-01-15",
+      "meeting_type": "Regular"
+    }
+  ]
+}</code></pre>
+                    <h6 class="mt-4">Valid Values:</h6>
+                    <ul>
+                        <li><strong>outcome:</strong> PASS, FAIL, FLAG, CONTINUED, REMOVED, TIE</li>
+                        <li><strong>member_votes:</strong> AYE, NAY, ABSTAIN, ABSENT, RECUSAL</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- API Client -->
+    <script src="js/api.js"></script>
+    <!-- Main JS -->
+    <script src="js/main.js"></script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', async function() {
+        console.log('CityVotes POC - Home Page Loaded');
+
+        // Check for existing session
+        updateSessionUI();
+
+        // Load cities
+        await loadCities();
+    });
+
+    async function loadCities() {
+        const container = document.getElementById('cityCardsContainer');
+
+        try {
+            const cities = await CityVotesAPI.getCities();
+
+            container.innerHTML = '';
+
+            for (const [cityKey, cityConfig] of Object.entries(cities)) {
+                const card = document.createElement('div');
+                card.className = 'col-md-6 mb-4';
+                card.innerHTML = `
+                    <div class="card h-100 city-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-building fa-3x text-primary mb-3"></i>
+                            <h5 class="card-title">${cityConfig.display_name}</h5>
+                            <p class="text-muted">${cityConfig.total_seats} council members</p>
+                            <div class="mt-3">
+                                <a href="upload.html?city=${cityKey}" class="btn btn-primary btn-lg w-100">
+                                    <i class="fas fa-eye me-2"></i>View ${cityConfig.name}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            }
+        } catch (error) {
+            console.error('Error loading cities:', error);
+            container.innerHTML = `
+                <div class="col-12">
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Unable to connect to backend API. Make sure the server is running on port 8000.
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    function updateSessionUI() {
+        const hasSession = CityVotesAPI.hasSession();
+        const currentCity = CityVotesAPI.getCurrentCity();
+
+        // Show/hide dashboard menu
+        document.getElementById('dashboardMenu').style.display = hasSession ? 'block' : 'none';
+
+        // Show/hide current city badge
+        const cityDisplay = document.getElementById('currentCityDisplay');
+        if (hasSession && currentCity) {
+            cityDisplay.style.display = 'block';
+            document.getElementById('currentCityBadge').textContent = currentCity.replace('_', ' ').toUpperCase();
+        } else {
+            cityDisplay.style.display = 'none';
+        }
+
+        // Show/hide dashboard buttons
+        document.getElementById('viewDashboardsBtn').style.display = hasSession ? 'inline-block' : 'none';
+        document.getElementById('uploadFirstBtn').style.display = hasSession ? 'none' : 'inline-block';
+
+        // Show session info
+        const sessionSection = document.getElementById('sessionInfoSection');
+        if (hasSession) {
+            sessionSection.style.display = 'block';
+            document.getElementById('sessionIdDisplay').textContent = CityVotesAPI.getSessionId().substring(0, 8) + '...';
+            document.getElementById('sessionCityDisplay').textContent = currentCity ? currentCity.replace('_', ' ').toUpperCase() : 'None';
+
+            // Load session cities
+            loadSessionCities();
+        } else {
+            sessionSection.style.display = 'none';
+        }
+    }
+
+    async function loadSessionCities() {
+        try {
+            const data = await CityVotesAPI.getSessionCities();
+            const container = document.getElementById('sessionCitiesList');
+            container.innerHTML = `<strong>Cities with data:</strong> ${data.cities.join(', ')}`;
+        } catch (error) {
+            console.log('Could not load session cities:', error);
+        }
+    }
+
+    function showSampleData() {
+        const modal = new bootstrap.Modal(document.getElementById('sampleDataModal'));
+        modal.show();
+    }
+    </script>
+</body>
+</html>

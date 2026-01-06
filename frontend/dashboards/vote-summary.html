@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote Summary - CityVotes POC</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../css/main.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <i class="fas fa-vote-yea me-2"></i>CityVotes POC
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../upload.html">
+                            <i class="fas fa-upload me-1"></i>Upload Data
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-chart-bar me-1"></i>Dashboards
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item active" href="vote-summary.html">
+                                <i class="fas fa-chart-pie me-2"></i>Vote Summary
+                            </a></li>
+                            <li><a class="dropdown-item" href="member-analysis.html">
+                                <i class="fas fa-users me-2"></i>Member Analysis
+                            </a></li>
+                            <li><a class="dropdown-item" href="city-comparison.html">
+                                <i class="fas fa-balance-scale me-2"></i>City Comparison
+                            </a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <!-- Current City Display -->
+                <div class="navbar-text me-3" id="currentCityDisplay">
+                    <i class="fas fa-map-marker-alt me-1"></i>
+                    <span class="badge bg-light text-dark" id="currentCityBadge"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Alert Container -->
+    <div class="container mt-3" id="alertContainer"></div>
+
+    <!-- Main Content -->
+    <main class="container my-4">
+        <!-- Dashboard Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2 class="text-primary">
+                            <i class="fas fa-chart-pie me-2"></i>Vote Summary Dashboard
+                        </h2>
+                        <p class="text-muted mb-0" id="dashboardSubtitle">
+                            Loading...
+                        </p>
+                    </div>
+                    <div id="citySwitcher">
+                        <!-- City switcher will be populated if multiple cities -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="text-center py-5">
+            <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3 text-muted">Loading dashboard data...</p>
+        </div>
+
+        <!-- Dashboard Content (hidden until loaded) -->
+        <div id="dashboardContent" style="display: none;">
+            <!-- Key Metrics Cards -->
+            <div class="row mb-4">
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="card metric-card">
+                        <div class="metric-value" id="totalVotes">0</div>
+                        <div class="metric-label">Total Votes</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="card metric-card">
+                        <div class="metric-value text-success" id="passedCount">0</div>
+                        <div class="metric-label">Passed</div>
+                        <div class="metric-percentage positive" id="passedPercentage">0%</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="card metric-card">
+                        <div class="metric-value text-danger" id="failedCount">0</div>
+                        <div class="metric-label">Failed</div>
+                        <div class="metric-percentage" id="failedPercentage">0%</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="card metric-card">
+                        <div class="metric-value" id="activeMembers">0</div>
+                        <div class="metric-label">Active Members</div>
+                        <div class="metric-percentage" id="participationRate">0% participating</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="row mb-4">
+                <!-- Vote Outcome Chart -->
+                <div class="col-md-6 mb-4">
+                    <div class="card dashboard-card">
+                        <div class="card-header">
+                            <h5><i class="fas fa-chart-pie me-2"></i>Vote Outcomes</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="voteOutcomeChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Member Participation Chart -->
+                <div class="col-md-6 mb-4">
+                    <div class="card dashboard-card">
+                        <div class="card-header">
+                            <h5><i class="fas fa-chart-bar me-2"></i>Member Participation</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="memberParticipationChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Member Summary Table -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card dashboard-card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5><i class="fas fa-users me-2"></i>Council Member Summary</h5>
+                            <small class="text-light" id="memberCount">0 members</small>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Council Member</th>
+                                            <th class="text-center">Total Votes</th>
+                                            <th class="text-center">Aye %</th>
+                                            <th class="text-center">Participation</th>
+                                            <th>Voting Pattern</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="memberTableBody">
+                                        <!-- Member rows will be populated dynamically -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Navigation -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6><i class="fas fa-compass me-2"></i>Explore More</h6>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <a href="member-analysis.html" class="btn btn-outline-primary w-100 mb-2">
+                                        <i class="fas fa-user-friends me-2"></i>Member Analysis
+                                    </a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="agenda-items.html" class="btn btn-outline-info w-100 mb-2">
+                                        <i class="fas fa-list-alt me-2"></i>Agenda Items
+                                    </a>
+                                </div>
+                                <div class="col-md-4" id="comparisonBtnContainer">
+                                    <a href="city-comparison.html" class="btn btn-outline-success w-100 mb-2" id="comparisonBtn">
+                                        <i class="fas fa-balance-scale me-2"></i>City Comparison
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- No Session Message -->
+        <div id="noSessionMessage" style="display: none;">
+            <div class="alert alert-warning text-center">
+                <i class="fas fa-exclamation-triangle fa-3x mb-3"></i>
+                <h4>No Data Available</h4>
+                <p>Please upload voting data first to view the dashboard.</p>
+                <a href="../upload.html" class="btn btn-warning">
+                    <i class="fas fa-upload me-2"></i>Upload Data
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-light mt-5 py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h6>CityVotes POC - Two-City Vote Analysis Platform</h6>
+                    <p class="text-muted mb-0">Vote Summary Dashboard</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- API Client -->
+    <script src="../js/api.js"></script>
+    <!-- Main JS -->
+    <script src="../js/main.js"></script>
+
+    <script>
+    let dashboardData = null;
+    let voteOutcomeChart = null;
+    let memberParticipationChart = null;
+
+    document.addEventListener('DOMContentLoaded', async function() {
+        console.log('CityVotes POC - Vote Summary Dashboard Loaded');
+
+        // Check for session
+        if (!CityVotesAPI.hasSession()) {
+            showNoSession();
+            return;
+        }
+
+        // Update UI
+        updateCityBadge();
+
+        // Load dashboard data
+        await loadDashboard();
+    });
+
+    function showNoSession() {
+        document.getElementById('loadingSpinner').style.display = 'none';
+        document.getElementById('noSessionMessage').style.display = 'block';
+    }
+
+    function updateCityBadge() {
+        const currentCity = CityVotesAPI.getCurrentCity();
+        document.getElementById('currentCityBadge').textContent =
+            currentCity ? currentCity.replace('_', ' ').toUpperCase() : 'No City';
+    }
+
+    async function loadDashboard() {
+        try {
+            dashboardData = await CityVotesAPI.getVoteSummary();
+
+            // Hide loading, show content
+            document.getElementById('loadingSpinner').style.display = 'none';
+            document.getElementById('dashboardContent').style.display = 'block';
+
+            // Update subtitle
+            document.getElementById('dashboardSubtitle').textContent =
+                `${dashboardData.city_info.display_name} - ${dashboardData.upload_info.original_filename}`;
+
+            // Update metrics
+            updateMetrics();
+
+            // Create charts
+            createCharts();
+
+            // Populate member table
+            populateMemberTable();
+
+            // Check for comparison availability
+            checkComparisonAvailability();
+
+        } catch (error) {
+            console.error('Error loading dashboard:', error);
+            document.getElementById('loadingSpinner').style.display = 'none';
+            showAlert(`Error loading dashboard: ${error.message}`, 'error');
+        }
+    }
+
+    function updateMetrics() {
+        const summary = dashboardData.vote_summary;
+        const memberAnalysis = dashboardData.member_analysis;
+
+        document.getElementById('totalVotes').textContent = summary.total_votes;
+
+        const passData = summary.outcomes.PASS || { count: 0, percentage: 0 };
+        const failData = summary.outcomes.FAIL || { count: 0, percentage: 0 };
+
+        document.getElementById('passedCount').textContent = passData.count;
+        document.getElementById('passedPercentage').textContent = passData.percentage + '%';
+
+        document.getElementById('failedCount').textContent = failData.count;
+        document.getElementById('failedPercentage').textContent = failData.percentage + '%';
+
+        const totalMembers = Object.keys(memberAnalysis).length;
+        const activeMembers = Object.values(memberAnalysis).filter(m => m.total_votes > 0).length;
+
+        document.getElementById('activeMembers').textContent = activeMembers;
+        document.getElementById('participationRate').textContent =
+            totalMembers > 0 ? Math.round(activeMembers / totalMembers * 100) + '% participating' : '0%';
+    }
+
+    function createCharts() {
+        // Vote Outcome Pie Chart
+        const outcomes = dashboardData.vote_summary.outcomes;
+        const outcomeColors = {
+            'PASS': '#28a745',
+            'FAIL': '#dc3545',
+            'FLAG': '#fd7e14',
+            'CONTINUED': '#6c757d',
+            'REMOVED': '#adb5bd',
+            'TIE': '#ffc107'
+        };
+
+        const filteredOutcomes = Object.entries(outcomes).filter(([key, val]) => val.count > 0);
+
+        const ctx1 = document.getElementById('voteOutcomeChart').getContext('2d');
+        voteOutcomeChart = new Chart(ctx1, {
+            type: 'pie',
+            data: {
+                labels: filteredOutcomes.map(([key]) => key),
+                datasets: [{
+                    data: filteredOutcomes.map(([key, val]) => val.count),
+                    backgroundColor: filteredOutcomes.map(([key]) => outcomeColors[key] || '#6c757d'),
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const key = filteredOutcomes[context.dataIndex][0];
+                                const outcome = outcomes[key];
+                                return `${key}: ${outcome.count} (${outcome.percentage}%)`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Member Participation Bar Chart
+        const memberData = dashboardData.member_participation.slice(0, 7);
+
+        const ctx2 = document.getElementById('memberParticipationChart').getContext('2d');
+        memberParticipationChart = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: memberData.map(m => m.name.length > 20 ? m.name.substring(0, 20) + '...' : m.name),
+                datasets: [
+                    {
+                        label: 'Aye Votes',
+                        data: memberData.map(m => Math.round(m.votes * m.aye_percentage / 100)),
+                        backgroundColor: '#28a745'
+                    },
+                    {
+                        label: 'Other Votes',
+                        data: memberData.map(m => m.votes - Math.round(m.votes * m.aye_percentage / 100)),
+                        backgroundColor: '#dc3545'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { ticks: { maxRotation: 45, minRotation: 45 } },
+                    y: { beginAtZero: true, stacked: true }
+                },
+                plugins: {
+                    legend: { position: 'top' }
+                }
+            }
+        });
+    }
+
+    function populateMemberTable() {
+        const tbody = document.getElementById('memberTableBody');
+        const members = dashboardData.member_participation;
+        const totalVotes = dashboardData.vote_summary.total_votes;
+
+        document.getElementById('memberCount').textContent = members.length + ' members';
+
+        tbody.innerHTML = members.map(member => {
+            const participation = totalVotes > 0 ? (member.votes / totalVotes * 100).toFixed(1) : 0;
+            let pattern = 'Moderate';
+            let patternClass = 'bg-info';
+
+            if (member.aye_percentage >= 75) {
+                pattern = 'Pro-majority';
+                patternClass = 'bg-success';
+            } else if (member.aye_percentage <= 25) {
+                pattern = 'Frequent dissent';
+                patternClass = 'bg-warning';
+            }
+
+            return `
+                <tr>
+                    <td>
+                        <a href="member-profile.html?name=${encodeURIComponent(member.name)}" class="text-decoration-none">
+                            <strong>${member.name}</strong>
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <span class="badge bg-primary">${member.votes}</span>
+                    </td>
+                    <td class="text-center">
+                        <span class="badge bg-success">${member.aye_percentage}%</span>
+                    </td>
+                    <td class="text-center">
+                        <div class="progress" style="width: 100px; height: 6px;">
+                            <div class="progress-bar bg-info" style="width: ${participation}%"></div>
+                        </div>
+                        <small class="text-muted">${participation}%</small>
+                    </td>
+                    <td>
+                        <span class="badge ${patternClass}">${pattern}</span>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+    }
+
+    async function checkComparisonAvailability() {
+        try {
+            const sessionCities = await CityVotesAPI.getSessionCities();
+            if (sessionCities.cities.length < 2) {
+                document.getElementById('comparisonBtn').classList.add('disabled');
+                document.getElementById('comparisonBtn').innerHTML =
+                    '<i class="fas fa-balance-scale me-2"></i>City Comparison (need 2+ cities)';
+            }
+        } catch (error) {
+            console.log('Could not check comparison availability');
+        }
+    }
+
+    function showAlert(message, type = 'info') {
+        const container = document.getElementById('alertContainer');
+        const alert = document.createElement('div');
+        alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show`;
+        alert.innerHTML = `
+            <i class="fas fa-${type === 'error' ? 'exclamation-circle' : 'info-circle'} me-2"></i>
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        container.appendChild(alert);
+    }
+    </script>
+</body>
+</html>

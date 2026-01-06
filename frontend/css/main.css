@@ -1,0 +1,463 @@
+/* CityVotes POC - Main Stylesheet */
+
+:root {
+    --primary-color: #1f4e79;
+    --secondary-color: #f4b942;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --light-bg: #f8f9fa;
+    --border-radius: 8px;
+    --box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    --transition: all 0.3s ease;
+}
+
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+.navbar-brand {
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+/* Cards and Panels */
+.card {
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    border: 1px solid rgba(0,0,0,0.125);
+    transition: var(--transition);
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--primary-color), #2c5aa0);
+    color: white;
+    border-bottom: none;
+    border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
+}
+
+.card-header h5 {
+    margin: 0;
+    font-weight: 600;
+}
+
+/* Dashboard Specific Styles */
+.dashboard-card {
+    margin-bottom: 2rem;
+}
+
+.metric-card {
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border-left: 4px solid var(--primary-color);
+}
+
+.metric-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    line-height: 1;
+}
+
+.metric-label {
+    color: #6c757d;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 0.5rem;
+}
+
+.metric-percentage {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+.metric-percentage.positive {
+    color: var(--success-color);
+}
+
+.metric-percentage.negative {
+    color: var(--danger-color);
+}
+
+/* Chart Containers */
+.chart-container {
+    position: relative;
+    height: 400px;
+    margin: 1rem 0;
+}
+
+.chart-container.small {
+    height: 250px;
+}
+
+.chart-container.large {
+    height: 500px;
+}
+
+/* File Upload Styles */
+.upload-zone {
+    border: 3px dashed #dee2e6;
+    border-radius: var(--border-radius);
+    padding: 3rem 2rem;
+    text-align: center;
+    background: var(--light-bg);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.upload-zone:hover,
+.upload-zone.dragover {
+    border-color: var(--primary-color);
+    background: rgba(31, 78, 121, 0.05);
+}
+
+.upload-zone .upload-icon {
+    font-size: 3rem;
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+
+.upload-zone.dragover .upload-icon {
+    color: var(--primary-color);
+}
+
+.upload-text {
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+
+.file-input {
+    display: none;
+}
+
+/* City Selection */
+.city-selector {
+    margin-bottom: 2rem;
+}
+
+.city-option {
+    padding: 1rem;
+    border: 2px solid #dee2e6;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+}
+
+.city-option:hover {
+    border-color: var(--primary-color);
+    background: rgba(31, 78, 121, 0.05);
+}
+
+.city-option.selected {
+    border-color: var(--primary-color);
+    background: rgba(31, 78, 121, 0.1);
+}
+
+.city-option input[type="radio"] {
+    display: none;
+}
+
+.city-name {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.city-details {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+/* Member Analysis Styles */
+.member-card {
+    padding: 1rem;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 1rem;
+    border-left: 4px solid transparent;
+    transition: var(--transition);
+}
+
+.member-card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.member-card.high-participation {
+    border-left-color: var(--success-color);
+}
+
+.member-card.medium-participation {
+    border-left-color: var(--warning-color);
+}
+
+.member-card.low-participation {
+    border-left-color: var(--danger-color);
+}
+
+.member-name {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.vote-breakdown {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.75rem;
+}
+
+.vote-stat {
+    text-align: center;
+    flex: 1;
+}
+
+.vote-stat-value {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.vote-stat-label {
+    font-size: 0.8rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.vote-stat.aye .vote-stat-value {
+    color: var(--success-color);
+}
+
+.vote-stat.nay .vote-stat-value {
+    color: var(--danger-color);
+}
+
+.vote-stat.abstain .vote-stat-value {
+    color: var(--warning-color);
+}
+
+.vote-stat.absent .vote-stat-value {
+    color: #6c757d;
+}
+
+/* Alignment Matrix */
+.alignment-matrix {
+    overflow-x: auto;
+}
+
+.alignment-table {
+    min-width: 600px;
+}
+
+.alignment-cell {
+    padding: 0.5rem;
+    text-align: center;
+    font-weight: 600;
+    border-radius: 4px;
+    min-width: 60px;
+}
+
+.alignment-high {
+    background: var(--success-color);
+    color: white;
+}
+
+.alignment-medium {
+    background: var(--warning-color);
+    color: #333;
+}
+
+.alignment-low {
+    background: var(--danger-color);
+    color: white;
+}
+
+/* Comparison Styles */
+.comparison-card {
+    position: relative;
+    padding: 1.5rem;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 2rem;
+}
+
+.city-badge {
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    padding: 0.25rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.comparison-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.comparison-metric {
+    text-align: center;
+    padding: 1rem;
+    background: var(--light-bg);
+    border-radius: var(--border-radius);
+}
+
+.comparison-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.comparison-label {
+    font-size: 0.8rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Progress Bars */
+.progress {
+    height: 8px;
+    border-radius: 4px;
+    background-color: #e9ecef;
+}
+
+.progress-bar {
+    border-radius: 4px;
+    transition: width 0.6s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .metric-value {
+        font-size: 2rem;
+    }
+
+    .chart-container {
+        height: 300px;
+    }
+
+    .upload-zone {
+        padding: 2rem 1rem;
+    }
+
+    .upload-zone .upload-icon {
+        font-size: 2rem;
+    }
+
+    .vote-breakdown {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .comparison-metrics {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar-brand {
+        font-size: 1.25rem;
+    }
+
+    .metric-card {
+        padding: 1rem;
+    }
+
+    .metric-value {
+        font-size: 1.75rem;
+    }
+
+    .chart-container {
+        height: 250px;
+    }
+}
+
+/* Loading States */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* City Card Styles */
+.city-card {
+    transition: var(--transition);
+    border: 1px solid #dee2e6;
+}
+
+.city-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    border-color: var(--primary-color);
+}
+
+.city-card .card-body {
+    padding: 2rem;
+}
+
+.city-card .fas.fa-building {
+    transition: var(--transition);
+}
+
+.city-card:hover .fas.fa-building {
+    color: var(--secondary-color) !important;
+    transform: scale(1.1);
+}
+
+/* Utility Classes */
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+.border-primary {
+    border-color: var(--primary-color) !important;
+}
+
+.shadow-sm {
+    box-shadow: var(--box-shadow) !important;
+}
+
+.transition {
+    transition: var(--transition) !important;
+}
